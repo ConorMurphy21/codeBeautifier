@@ -24,6 +24,10 @@ private:
 
     static void removePunctuation(vector<string>& wordList);
 
+    //we seperated everything by spaces, but quotes need to stay together
+    //so let's put em back together
+    static void joinQuotes(vector<string>& wordList);
+
     static void uniquify(vector<string>& wordList);
 
     static void removePreProsIns(vector<string>& list, string* str);
@@ -32,7 +36,7 @@ private:
 
     static int pickIndex(vector<string>& list, int index);
 
-    static void connectWords(vector<string>& list, int index);
+    static void joinWords(vector<string>& list, int index, char join);
 };
 
 

@@ -44,6 +44,31 @@ int main(int argc, char** argv){
     Beautifier beautifier;
     beautifier.create(args);
 
+
+    char specialChars[256] = {
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, //15
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, //31
+            0, 2, 3, 0, 0, 2, 2, 3, 1, 1, 2, 2, 0, 2, 0, 2, //47
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 2, 2, 2, 1, //63
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, //79
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 2, 0, //95
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, //111
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 1, 1, 0  //127
+
+    };
+
+    cout << "1's :";
+    for(unsigned char c = 0; c < 128; c++){
+        if (specialChars[c] == 1) cout <<" "<< c;
+    }
+    cout << "\n2's :";
+    for(unsigned char c = 0; c < 128; c++){
+        if (specialChars[c] == 2) cout <<" "<< c;
+    }
+    cout << "\n3's :";
+    for(unsigned char c = 0; c < 128; c++){
+        if (specialChars[c] == 3) cout <<" "<< c;
+    }
     //ok at this point all we gotta do is finesse the size of each word array
     //to be the same size, then send'er back
 

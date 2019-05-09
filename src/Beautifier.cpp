@@ -50,10 +50,11 @@ void Beautifier::removePreProsIns(vector<string>& list, string* pres){
 
 //desc: connects the word at the index, and at the index+1 together with an underscore
 //and places it in the relative spot
-void Beautifier::connectWords(vector<string>& list, int index){
-    list[index] = list[index] + "_" + list[index+1]; //put the tied words together in list[index]
+void Beautifier::joinWords(vector<string>& list, int index, char join){
+    list[index] = list[index] + join + list[index+1]; //put the tied words together in list[index]
     list.erase(list.begin()+index+1,list.begin()+index+2); //remove list[index+1]
 }
+
 
 //check if it's ok to tie index and index + 1 together;
 bool isOkTie(vector<string>& list, int index){
@@ -122,28 +123,28 @@ void Beautifier::uniquify(vector<string>& list){
             else one = i;
 
             if((index = pickIndex(list,one))!= -1){
-                connectWords(list,index);
+                joinWords(list,index,'_');
                 toggle = !toggle;
             }else if((index = pickIndex(list,two))!= -1){
-                connectWords(list,index);
+                joinWords(list,index,'_');
             }else{
                 if(one != 0){
                     list[one-1].pop_back();
-                    connectWords(list,one-1);
+                    joinWords(list,one-1,'_');
                     toggle = !toggle;
                 }else if(one != list.size()-1){
                     list[one].pop_back();
-                    connectWords(list,one);
+                    joinWords(list,one,'_');
                     toggle = !toggle;
                 }else if(two != 0){
                     list[two-1].pop_back();
-                    connectWords(list,two-1);
+                    joinWords(list,two-1,'_');
                 }else{
                     list[two].pop_back();
-                    connectWords(list,two);
+                    joinWords(list,two,'_');
                 }
             }
-            i--;
+            i -= 2;
             len--;
         }
     }
@@ -195,4 +196,30 @@ vector<string>* Beautifier::fileToWordArray(char* filename, bool incldNL){
         if(!word.empty())arr->push_back(word);
     }
     return arr;
+}
+
+//todo: this functioon, was gonna make jen do it but idk
+void Beautifier::joinQuotes(vector<string> &wordList) {
+    bool isQuoted = false;
+    for(int i = 0; i < wordList.size(); i++){
+        string word = wordList[i];
+        for(int j = 0; j < word.size(); j++) {
+            if (word[j] == '\"') {
+
+                if(isQuoted){
+
+                }
+                //splitWords();
+
+                isQuoted = !isQuoted;
+            }
+            if (isQuoted) {
+
+            }
+        }
+        //if a quote was opened and is still open by the end of a word
+        //join it together with the next word with a space
+        if(isQuoted) joinWords(wordList,i,' ');
+
+    }
 }
