@@ -50,7 +50,7 @@ public:
         return valid;
     }
 
-    char *getTxt() const {
+    char* getTxt() const {
         return txt;
     }
 

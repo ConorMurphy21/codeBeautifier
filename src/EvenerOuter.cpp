@@ -25,13 +25,14 @@ bool EvenerOuter::expandCode(vector <string> &code, int expectedSize) {
     //ok so I painstakingly went through every ascii characters to see if they were immediately seperable: 1
     //extrawork seperable: 2, quotes: 3, everything else 0
     //1's : ( ) ; ? [ ] { } ~ (as far as I know these never need to be grouped)
-    //2's : ! % & * + - / : < = > ^ | (these sometimes need to be grouped)
-    //3's : " ' (this shit I just have to worry about)
+    //2's : ! % & * + - / : = ^ | (these sometimes need to be grouped)
+    //3's : " ' (just skip words that start with these) they already as reduced as possible
+    //4's : < > these unfortunately have  <<= and >>= which sucks
     char specialChars[256] = {
                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, //15
                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, //31
                            0, 2, 3, 0, 0, 2, 2, 3, 1, 1, 2, 2, 0, 2, 0, 2, //47
-                           0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 2, 2, 2, 1, //63
+                           0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 1, 4, 2, 4, 1, //63
                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, //79
                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 2, 0, //95
                            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, //111
@@ -40,9 +41,46 @@ bool EvenerOuter::expandCode(vector <string> &code, int expectedSize) {
     };
 
     //keep expandin
-    int i=0;
     while(code.size() < expectedSize){
 
+        int lastViewed = 0;
+
+        for(int i = 0; i < code.size(); i++){
+
+            string word = code[i];
+
+            for(int j = 0; j < word.length(); j++){
+
+                if(lastViewed){
+
+
+
+                }else {
+
+
+                    switch (specialChars[word[j]]) {
+
+                        case 1:
+                            //this one is ez, just break before and after it and move on
+
+                        case 2:
+                            //this one is the hardest as these have special chars that have to come next
+
+                        case 3:
+                            //this case is special too, gotta cut before the quote, and after the second quote
+
+                        default:
+                            //this case ain't special at all
+                            break;
+                    }
+
+
+                    lastViewed = specialChars[word[j]];
+                }
+            }
+
+
+        }
 
     }
     return false;
