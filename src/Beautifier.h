@@ -14,25 +14,13 @@
 
 using namespace std;
 class Beautifier {
+
 public:
 
     Beautifier() = default;
 
-    void create(Arguments* args);
+    bool create(Arguments* args);
 
-
-private:
-
-
-    static int breakWordAtIndex(vector<string> &list, unsigned int wordIndex, unsigned int index);
-
-    static void uniquify(vector<string>& wordList);
-
-    static int findInd(vector<string>& list, string key);
-
-    static int pickIndex(vector<string>& list, int index);
-
-    static int joinWords(vector<string> &list, int index, char join);
 };
 
 

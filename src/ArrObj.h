@@ -14,6 +14,10 @@ class ArrObj{
 public:
 
 
+    unsigned size(){
+        return list->size();
+    }
+
 // todo: move these to another object because they are basic utilities
 // desc: connects the word at the index, and at the index+1 together with an underscore
 // and places it in the relative spot
@@ -30,7 +34,7 @@ public:
 // returns if the function was successful
     int breakWordAtIndex(unsigned wordIndex, unsigned index){
         if(index == 0)return 0;
-        string word = list->at(index);
+        string word = list->at(wordIndex);
         //the last index is useless as there's nothing
         if(index >= word.length())return 0;
 

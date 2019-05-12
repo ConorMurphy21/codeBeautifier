@@ -26,6 +26,8 @@ public:
 
     explicit TextObj(vector<string>* list):ArrObj(list){}
 
+    bool condense(int expectedSize);
+
     void uniquify();
 };
 

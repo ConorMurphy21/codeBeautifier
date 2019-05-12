@@ -3,4 +3,4 @@ project(codeBeautifier)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(codeBeautifier src/main.cpp src/ArgumentFactory.cpp src/Beautifier.cpp src/EvenerOuter.cpp src/TextObj.cpp src/CodeObj.cpp)
+add_executable(codeBeautifier src/main.cpp src/ArgumentFactory.cpp src/Beautifier.cpp src/TextObj.cpp src/CodeObj.cpp)

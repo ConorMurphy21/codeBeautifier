@@ -9,17 +9,29 @@
 #include "CodeObj.h"
 #include "TextObj.h"
 
+bool evenEmOut(TextObj& txt, CodeObj& code){
+    if(code.size() > txt.size()){
+        return code.condense(txt.size());
+    }else if(code.size() < txt.size()){
+        if(!code.expand(txt.size())){
+            return txt.condense(code.size());
+        }
+    }
+    return true;
 
-void Beautifier::create(Arguments* args){
+}
+
+bool Beautifier::create(Arguments* args){
 
 
     string txtfn = args->getTxt();
     auto txtWords = TextObj::create(txtfn);
     string codefn = args->getCode();
     auto codeWords = CodeObj::create(codefn);
-
     txtWords->uniquify();
+    evenEmOut(*txtWords,*codeWords);
 
-    //ok at this point we just need to make the arrays the same size
+
+    return true;
 }
 

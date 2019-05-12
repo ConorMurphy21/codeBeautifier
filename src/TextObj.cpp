@@ -88,16 +88,16 @@ int TextObj::findInd(string& key){
 
 void TextObj::uniquify() {
 
-    auto ls = *list;
-    int len = ls.size();
+    int len = list->size();
     bool toggle = true; //we want to spread out the underscores so they aren't all in one place
     //for aesthetic reasons. so we are going to toggle where we put the underscore,
     //on the first one, or on the end one. Obviously not a perfect solution,
     //but it's an improvement from just all at the end or start
     for(int i = 0; i < len; i++){
-        string word = ls[i];
+        string word = list->at(i);
 
         int pos = findInd(word);
+
         if(pos != i){
             int index;
             //we need to do some tomfoolery to make them different but still aesthetic
@@ -106,6 +106,11 @@ void TextObj::uniquify() {
             if(toggle) two = i;
             else one = i;
 
+            //todo: ok this whole part right here needs to be redone
+            //we check too much for the problems with one and too
+            //instead we need to just rank each of the 4 possible index's and choose the best one
+            //and then have special cases if the best one ranks too low (because either
+            // it is still not unique or it is alone with enters)
             if((index = pickIndex(one))!= -1){
                 joinWords(index,'_');
                 toggle = !toggle;
@@ -113,23 +118,28 @@ void TextObj::uniquify() {
                 joinWords(index,'_');
             }else{
                 if(one != 0){
-                    ls[one-1].pop_back();
+                    list->at(one-1).pop_back();
                     joinWords(one-1,'_');
                     toggle = !toggle;
-                }else if(one != ls.size()-1){
-                    ls[one].pop_back();
+                }else if(one != list->size()-1){
+                    list->at(one).pop_back();
                     joinWords(one,'_');
                     toggle = !toggle;
                 }else if(two != 0){
-                    ls[two-1].pop_back();
+                    list->at(two-1).pop_back();
                     joinWords(two-1,'_');
                 }else{
-                    ls[two].pop_back();
+                    list->at(two).pop_back();
                     joinWords(two,'_');
                 }
             }
-            i -= 2;
+            i--;
             len--;
         }
     }
+}
+
+bool TextObj::condense(int expectedSize) {
+
+    return false;
 }

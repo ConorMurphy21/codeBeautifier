@@ -88,3 +88,71 @@ CodeObj* CodeObj::create(string& filename) {
     }
     return new CodeObj(arr, prePros);
 }
+
+bool CodeObj::condense(int expectedSize) {
+    //we will use a heap here to join the smallest elements together to make it even
+
+    return false;
+}
+
+bool CodeObj::expand(int expectedSize) {
+
+    int last = 0;
+    bool expanded = false;
+    for(int i = 0; i < list->size(); i++){
+        string word = list->at(i);
+
+
+        for(int j = 0; j < word.size(); j++){
+
+            int type = specialChars[word[j]];
+
+            bool br = false;
+
+            if(last){
+
+                switch (last){
+                    case 1:
+                        breakWordAtIndex(i,j+1);
+                        break;
+                    case 2:
+                        if(type)breakWordAtIndex(i,j+2);
+                        break;
+                    default:
+                        break;
+                }
+                //so last will = 0
+                br = true;
+                type = 0;
+            } else {
+
+                switch (type) {
+                    case 1:
+                    case 2:
+                        breakWordAtIndex(i, j);
+                    case 3:
+                        br = true;
+                    case 4:
+                    default:
+                        break;
+
+                }
+            }
+
+            last = type;
+
+            if(list->size() == expectedSize){
+                expanded = true;
+                break;
+            }
+            if(br)break;
+
+
+        }
+
+        if(expanded)break;
+    }
+
+
+    return expanded;
+}

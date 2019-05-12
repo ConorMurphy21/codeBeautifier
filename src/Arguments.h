@@ -17,6 +17,10 @@ private:
     //keep the definitions in the .cpp file and not a .h
     bool singleFile = false; // flag: -s
 
+    //I would like the option to scramble the definitions to make it less clear
+    //how the function works
+    bool scramble = false;
+
     //the txt file to read in
     char* txt;
     //the code file to read in
