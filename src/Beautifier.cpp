@@ -31,7 +31,7 @@ bool Beautifier::create(Arguments* args){
     txtWords->uniquify();
     evenEmOut(*txtWords,*codeWords);
 
-
+    int i = 0;
     return true;
 }
 

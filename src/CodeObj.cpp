@@ -95,6 +95,8 @@ bool CodeObj::condense(int expectedSize) {
     return false;
 }
 
+//todo: this needs hella testing
+//it works on the file I gave it but damn I am scared
 bool CodeObj::expand(int expectedSize) {
 
     int last = 0;
@@ -102,10 +104,12 @@ bool CodeObj::expand(int expectedSize) {
     for(int i = 0; i < list->size(); i++){
         string word = list->at(i);
 
-
         for(int j = 0; j < word.size(); j++){
 
+            char c = word[j];
+
             int type = specialChars[word[j]];
+
 
             bool br = false;
 
@@ -116,40 +120,42 @@ bool CodeObj::expand(int expectedSize) {
                         breakWordAtIndex(i,j+1);
                         break;
                     case 2:
-                        if(type)breakWordAtIndex(i,j+2);
-                        break;
-                    default:
+                        if(type < 2)breakWordAtIndex(i,j+1);
+                        if(type == 2)breakWordAtIndex(i,j+2);
                         break;
                 }
                 //so last will = 0
                 br = true;
-                type = 0;
+                last = 0;
             } else {
 
                 switch (type) {
                     case 1:
                     case 2:
-                        breakWordAtIndex(i, j);
+                        if(breakWordAtIndex(i, j)) {
+                            br = true;
+                            last = type;
+                        }
+                        else last = 0;
+
+                        break;
                     case 3:
                         br = true;
+                        break;
                     case 4:
                     default:
+                        last = type;
                         break;
 
                 }
             }
-
-            last = type;
 
             if(list->size() == expectedSize){
                 expanded = true;
                 break;
             }
             if(br)break;
-
-
         }
-
         if(expanded)break;
     }
 
