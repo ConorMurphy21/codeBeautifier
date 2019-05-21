@@ -36,11 +36,9 @@ public:
 
     static CodeObj* create(string& filename);
 
-    explicit CodeObj(vector<string>* list, string& prePros):ArrObj(list){
+    explicit CodeObj(vector<string>& list, string& prePros):ArrObj(list){
         this->prePros = prePros;
     }
-
-    bool condense(int expectedSize);
 
     bool expand(int expectedSize);
 };

@@ -12,7 +12,7 @@ TextObj* TextObj::create(string& filename){
         cout << filename << " could not be opened" << endl;
         return nullptr;
     }
-    auto arr = new vector<string>();
+    vector<string> arr;
     string line;
 
     while(std::getline(in,line)){
@@ -28,17 +28,17 @@ TextObj* TextObj::create(string& filename){
                 word += c;
             }else if(c == ' '){
                 //if is space, push word and start over
-                if(!word.empty())arr->push_back(word);
+                if(!word.empty())arr.push_back(word);
                 word.clear();
             }
         }
 
         //wierd but not uncommon edge case where sentence ends with space needs to be covered
         if(word.empty()){
-            arr->at(arr->size()-1) += '\n';
+            arr[arr.size()-1] += '\n';
         }else {
             word += '\n';
-            if (!word.empty())arr->push_back(word);
+            if (!word.empty())arr.push_back(word);
         }
     }
 
@@ -49,11 +49,11 @@ TextObj* TextObj::create(string& filename){
 bool TextObj::isOkTie(int index){
     if(index < 0) {
         return false;
-    }else if(index >= list->size()-1){
+    }else if(index >= list.size()-1){
         return false;
     }else{
-        int last = list->at(index).length()-1;
-        return (list->at(index)[last] != '\n');
+        int last = list.at(index).length()-1;
+        return (list.at(index)[last] != '\n');
     }
 }
 
@@ -74,10 +74,10 @@ int TextObj::pickIndex(int index){
 //pre: none
 //post: none of the parameters are changed
 int TextObj::findInd(string& key){
-    int size = list->size();
+    int size = list.size();
     if(key[key.size()-1] == '\n')key.pop_back();
     for(int i = 0; i < size; i++){
-        string word = list->at(i);
+        string word = list[i];
         if(word == key)return i;
         if(word[word.length()-1] == '\n'){
             if(key == word.substr(0,word.length()-1))return i;
@@ -88,13 +88,13 @@ int TextObj::findInd(string& key){
 
 void TextObj::uniquify() {
 
-    int len = list->size();
+    int len = list.size();
     bool toggle = true; //we want to spread out the underscores so they aren't all in one place
     //for aesthetic reasons. so we are going to toggle where we put the underscore,
     //on the first one, or on the end one. Obviously not a perfect solution,
     //but it's an improvement from just all at the end or start
     for(int i = 0; i < len; i++){
-        string word = list->at(i);
+        string word = list[i];
 
         int pos = findInd(word);
 
@@ -118,18 +118,18 @@ void TextObj::uniquify() {
                 joinWords(index,'_');
             }else{
                 if(one != 0){
-                    list->at(one-1).pop_back();
+                    list[one-1].pop_back();
                     joinWords(one-1,'_');
                     toggle = !toggle;
-                }else if(one != list->size()-1){
-                    list->at(one).pop_back();
+                }else if(one != list.size()-1){
+                    list[one].pop_back();
                     joinWords(one,'_');
                     toggle = !toggle;
                 }else if(two != 0){
-                    list->at(two-1).pop_back();
+                    list[two-1].pop_back();
                     joinWords(two-1,'_');
                 }else{
-                    list->at(two).pop_back();
+                    list[two].pop_back();
                     joinWords(two,'_');
                 }
             }
@@ -139,7 +139,3 @@ void TextObj::uniquify() {
     }
 }
 
-bool TextObj::condense(int expectedSize) {
-
-    return false;
-}

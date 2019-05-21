@@ -14,7 +14,7 @@ CodeObj* CodeObj::create(string& filename) {
         cout << filename << " could not be opened" << endl;
         return nullptr;
     }
-    auto arr = new vector<string>();
+    vector<string> arr;
     string line;
     bool commented, quoted, inLine;
     commented = quoted = inLine = false;
@@ -38,7 +38,7 @@ CodeObj* CodeObj::create(string& filename) {
                 word += c;
                 if(c == quote){
                     //push back the quote
-                    if (!word.empty()) arr->push_back(word);
+                    if (!word.empty()) arr.push_back(word);
                     word.clear();
                     //end quote
                     quoted = false;
@@ -56,7 +56,7 @@ CodeObj* CodeObj::create(string& filename) {
 
             if(c == '\"' || c == '\''){
                 quoted = true;
-                if(!word.empty())arr->push_back(word);
+                if(!word.empty())arr.push_back(word);
                 word.clear();
                 word += c;
                 quote = c;
@@ -73,7 +73,7 @@ CodeObj* CodeObj::create(string& filename) {
                     }
                 }
             }else if(c == ' '){
-                if(!word.empty())arr->push_back(word);
+                if(!word.empty())arr.push_back(word);
                 word.clear();
             }else{
                 word += c;
@@ -81,18 +81,12 @@ CodeObj* CodeObj::create(string& filename) {
         }
 
         if(!inLine && !commented) {
-            if (!word.empty())arr->push_back(word);
+            if (!word.empty())arr.push_back(word);
             word.clear();
         }
         inLine = false;
     }
     return new CodeObj(arr, prePros);
-}
-
-bool CodeObj::condense(int expectedSize) {
-    //we will use a heap here to join the smallest elements together to make it even
-
-    return false;
 }
 
 //todo: this needs hella testing
@@ -101,8 +95,8 @@ bool CodeObj::expand(int expectedSize) {
 
     int last = 0;
     bool expanded = false;
-    for(int i = 0; i < list->size(); i++){
-        string word = list->at(i);
+    for(int i = 0; i < list.size(); i++){
+        string word = list[i];
 
         for(int j = 0; j < word.size(); j++){
 
@@ -150,7 +144,7 @@ bool CodeObj::expand(int expectedSize) {
                 }
             }
 
-            if(list->size() == expectedSize){
+            if(list.size() == expectedSize){
                 expanded = true;
                 break;
             }

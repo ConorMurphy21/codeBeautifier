@@ -24,9 +24,7 @@ public:
 
     static TextObj* create(string& filename);
 
-    explicit TextObj(vector<string>* list):ArrObj(list){}
-
-    bool condense(int expectedSize);
+    explicit TextObj(vector<string>& list):ArrObj(list){}
 
     void uniquify();
 };
