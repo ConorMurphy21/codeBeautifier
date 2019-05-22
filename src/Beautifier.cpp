@@ -29,7 +29,7 @@ bool Beautifier::create(Arguments* args){
     string codefn = args->getCode();
     auto codeWords = CodeObj::create(codefn);
     txtWords->uniquify();
-    evenEmOut(*txtWords,*codeWords);
+    //evenEmOut(*txtWords,*codeWords);
 
     return true;
 }

@@ -1,4 +1,6 @@
 
-set(SOURCE_FILES ArgumentFactory.cpp Beautifier.cpp TextObj.cpp CodeObj.cpp)
+project(src)
 
-add_executable(codeBeautifier ${SOURCE_FILES} main.cpp)
+
+add_library(${PROJECT_NAME} ArgumentFactory.cpp Beautifier.cpp TextObj.cpp CodeObj.cpp)
+

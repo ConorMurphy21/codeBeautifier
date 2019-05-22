@@ -26,17 +26,6 @@ public:
         return list.size();
     }
 
-    bool condense(int expectedSize){
-
-        //make deep copy of list
-        vector<string> heap = list;
-        make_heap(heap.begin(),heap.end(),byLength());
-
-
-
-        //ok we made a heap, now just combine all of
-
-    }
 
 // todo: move these to another object because they are basic utilities
 // desc: connects the word at the index, and at the index+1 together with an underscore

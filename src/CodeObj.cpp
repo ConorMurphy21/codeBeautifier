@@ -91,7 +91,7 @@ CodeObj* CodeObj::create(string& filename) {
 
 //todo: this needs hella testing
 //it works on the file I gave it but damn I am scared
-bool CodeObj::expand(int expectedSize) {
+bool CodeObj::expand(unsigned int expectedSize) {
 
     int last = 0;
     bool expanded = false;
@@ -155,4 +155,8 @@ bool CodeObj::expand(int expectedSize) {
 
 
     return expanded;
+}
+
+bool CodeObj::condense(unsigned expectedSize) {
+    return false;
 }

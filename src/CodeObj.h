@@ -40,7 +40,9 @@ public:
         this->prePros = prePros;
     }
 
-    bool expand(int expectedSize);
+    bool expand(unsigned int expectedSize);
+
+    bool condense(unsigned expectedSize);
 };
 
 

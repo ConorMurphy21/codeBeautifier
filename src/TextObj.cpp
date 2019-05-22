@@ -86,6 +86,32 @@ int TextObj::findInd(string& key){
     return -1;
 }
 
+//ranks how well tying together the strings at index and index+1 will fair
+
+//not possible at all = -1
+//Connecting \n and already exists = 0
+//connecting \n only = 1
+//already exists = 2
+//nothing wrong = 3
+
+
+int TextObj::rankConnectionIndex(int index){
+
+    string main = list[index];
+
+    if(index < 0 || index >= list.size()-1) return -1;
+
+    if(main[main.length()-1] == '\n'){
+        main.pop_back();
+        if(findInd(main.append("_").append(list[index+1])) != -1)return 0;
+        return 1;
+    }else if(findInd(main.append("_").append(list[index+1])) != -1){
+        return 2;
+    }
+    return 3;
+
+}
+
 void TextObj::uniquify() {
 
     int len = list.size();
@@ -93,49 +119,65 @@ void TextObj::uniquify() {
     //for aesthetic reasons. so we are going to toggle where we put the underscore,
     //on the first one, or on the end one. Obviously not a perfect solution,
     //but it's an improvement from just all at the end or start
-    for(int i = 0; i < len; i++){
+    for(unsigned i = 0; i < len; i++){
         string word = list[i];
 
-        int pos = findInd(word);
+        int rank = rankConnectionIndex(i);
+
+        cout << rank << endl;
+        unsigned pos = findInd(word);
 
         if(pos != i){
-            int index;
-            //we need to do some tomfoolery to make them different but still aesthetic
 
-            int one = pos, two = pos;
-            if(toggle) two = i;
-            else one = i;
+            /* so at this point we have 4 possible solutions to solve the problem in an ideal scenario
+             * let's look at our ideal scenario "This is ideal Hello World Hello Earth"
+             * we can solve the problem by joining any of the following: ideal_Hello, Hello_World, World_Hello,
+             * or Hello_Earth. ie we can combine both pos and i with the word before or after each of them.
+             * But these circumstances are not always ideal:
+             * "Hello_World\nHello World\nHello Earth\n"
+             * Then our choices are "Hello_World_Hello" which ruins the new line
+             * "Hello_World\n" which already exists meaning we would need to join together one of the words again
+             * "World_Hello" which again ruins the new line
+             * "Hello Earth" which is the ideal choice.
+             * So what we need to do is choose the ideal choice, but still deal with the unideal scenarios
+            */
 
-            //todo: ok this whole part right here needs to be redone
-            //we check too much for the problems with one and too
-            //instead we need to just rank each of the 4 possible index's and choose the best one
-            //and then have special cases if the best one ranks too low (because either
-            // it is still not unique or it is alone with enters)
-            if((index = pickIndex(one))!= -1){
-                joinWords(index,'_');
-                toggle = !toggle;
-            }else if((index = pickIndex(two))!= -1){
-                joinWords(index,'_');
+            unsigned indexArr[] = {pos,pos-1,i-1,i};
+            unsigned rankArr[4];
+            for(unsigned j = 0; j < 4; j++)
+                rankArr[j] = rankConnectionIndex(indexArr[j]);
+
+            unsigned max = 0;
+            if(toggle){
+                for(unsigned j = 1; j < 4; j++)
+                    if(rankArr[j] > rankArr[max])max = j;
             }else{
-                if(one != 0){
-                    list[one-1].pop_back();
-                    joinWords(one-1,'_');
-                    toggle = !toggle;
-                }else if(one != list.size()-1){
-                    list[one].pop_back();
-                    joinWords(one,'_');
-                    toggle = !toggle;
-                }else if(two != 0){
-                    list[two-1].pop_back();
-                    joinWords(two-1,'_');
-                }else{
-                    list[two].pop_back();
-                    joinWords(two,'_');
-                }
+                for(unsigned j = 1; j < 4; j++)
+                    if(rankArr[j] >= rankArr[max])max = j;
             }
-            i--;
+
+            switch(rankArr[max]){
+                case 2:
+                    i--;
+                case 3:
+                    joinWords(max,'_');
+                    break;
+                case 0:
+                    i--;
+                case 1:
+                    list[max].pop_back();
+                    joinWords(max,'_');
+                    break;
+            }
+
             len--;
+            toggle = !toggle;
         }
     }
+}
+
+bool TextObj::condense(unsigned expectedSize) {
+
+    return false;
 }
 

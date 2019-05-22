@@ -19,8 +19,12 @@ private:
 
     int findInd(string& key);
 
+    int rankConnectionIndex(int index);
+
 
 public:
+
+    bool condense(unsigned expectedSize);
 
     static TextObj* create(string& filename);
 

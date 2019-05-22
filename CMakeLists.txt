@@ -3,13 +3,11 @@ project(codeBeautifier)
 
 set(CMAKE_CXX_STANDARD 14)
 
-find_library(codeBeautifier_lib codeBeautifier)
+add_executable(codeBeautifier main.cpp)
 
-
-include_directories(lib/googletest-master/googletest/include)
-include_directories(lib/googletest-master/googlemock/include)
-
+include_directories(src)
 
 add_subdirectory(src)
-add_subdirectory(lib/googletest-master)
 add_subdirectory(test)
+
+target_link_libraries(codeBeautifier src)
