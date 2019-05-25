@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <queue>
 #include "CodeObj.h"
 
 
@@ -158,5 +159,28 @@ bool CodeObj::expand(unsigned int expectedSize) {
 }
 
 bool CodeObj::condense(unsigned expectedSize) {
-    return false;
+
+    if(expectedSize == 0)return false;
+
+    while(list.size() > expectedSize){
+
+        int size = list.size();
+        unsigned min = list[0].length();
+        for(int i = 1; i < size; i++) {
+            if (list[i].length() < list[min].length())min = i;
+        }
+
+        unsigned tieInd;
+        if (min == 0) tieInd = min;
+        else if (min == list.size()-1){
+            tieInd = min-1;
+        }else{
+            tieInd = (list[min-1] < list[min+1]) ? min-1 : min+1;
+        }
+
+        joinWords(tieInd,' ');
+
+    }
+    //should basically never fail
+    return true;
 }

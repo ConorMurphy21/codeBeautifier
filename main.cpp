@@ -33,7 +33,9 @@ int main(int argc, char** argv){
     if(!args->isValid())return 5;
 
     Beautifier beautifier;
+    bool success = beautifier.create(args);
 
-    return beautifier.create(args);
+    delete args;
 
+    return !success;
 }

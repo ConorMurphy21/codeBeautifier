@@ -45,29 +45,6 @@ TextObj* TextObj::create(string& filename){
     return new TextObj(arr);
 }
 
-//check if it's ok to tie index and index + 1 together;
-bool TextObj::isOkTie(int index){
-    if(index < 0) {
-        return false;
-    }else if(index >= list.size()-1){
-        return false;
-    }else{
-        int last = list.at(index).length()-1;
-        return (list.at(index)[last] != '\n');
-    }
-}
-
-//desc: chooses whether to tie the index passed in to the word before or after it
-//if both of them have \n characters then it returns -1
-//this is because we want to avoid disrupting the given format of the text file
-//so we do not want to have to remove a new line character but we cannot have an identifier
-//with a new line character in it
-int TextObj::pickIndex(int index){
-    if(isOkTie(index-1))return index-1;
-    else if(isOkTie(index))return index;
-    else return -1;
-}
-
 //desc: find first index of the key past in (this is not generic because we say
 //that the two strings are equal even if there is a \n character at the end
 // ie "foo" == "foo\n" is true
@@ -93,8 +70,6 @@ int TextObj::findInd(string& key){
 //connecting \n only = 1
 //already exists = 2
 //nothing wrong = 3
-
-
 int TextObj::rankConnectionIndex(int index){
 
     string main = list[index];
@@ -122,9 +97,6 @@ void TextObj::uniquify() {
     for(unsigned i = 0; i < len; i++){
         string word = list[i];
 
-        int rank = rankConnectionIndex(i);
-
-        cout << rank << endl;
         unsigned pos = findInd(word);
 
         if(pos != i){
@@ -176,8 +148,39 @@ void TextObj::uniquify() {
     }
 }
 
+
+//this algorithm should work for literally 99% of cases, but it may create ununique identifiers
+//to counter this I call uniquify at the end, but this may make the algorithm overshoot and condense too much
+//so for now Ill just make if it fails call code.expand(), since this is a last resort method anyways,
+//and its called after the code is condensed, this should work
+//so returns false basically only if it overshoots
 bool TextObj::condense(unsigned expectedSize) {
 
-    return false;
+    if(expectedSize == 0)return false;
+
+    while(list.size() > expectedSize){
+
+        int size = list.size();
+        unsigned index = 0;
+        int rank = rankConnectionIndex(index);
+
+        for(int i = 1; i < size; i++) {
+            int r = rankConnectionIndex(i);
+            if(r > rank){
+                rank = r;
+                index = i;
+            }else if(r == rank){
+                if(list[i].length() < list[index].length()){
+                    rank = r;
+                    index = i;
+                }
+            }
+        }
+
+        joinWords(index,'_');
+
+    }
+    uniquify();
+    return size() == expectedSize;
 }
 

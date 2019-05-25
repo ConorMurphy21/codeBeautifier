@@ -13,9 +13,6 @@ using namespace std;
 class TextObj : public ArrObj {
 
 private:
-    bool isOkTie(int index);
-
-    int pickIndex(int index);
 
     int findInd(string& key);
 
@@ -24,11 +21,12 @@ private:
 
 public:
 
-    bool condense(unsigned expectedSize);
-
     static TextObj* create(string& filename);
 
+    //This should be protected or private but for testing it isn't worth only using files
     explicit TextObj(vector<string>& list):ArrObj(list){}
+
+    bool condense(unsigned expectedSize);
 
     void uniquify();
 };
