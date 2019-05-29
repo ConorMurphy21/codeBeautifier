@@ -14,7 +14,7 @@ on your light themed colleges repository? Now you can. Just Run this command
 line tool with a C/C++ file and a text file of your choosing and code beatifier
 will create a more beautiful (but still functional) version of your code.
 
-## :globe_with_meridians: Setup + Command Line Syntax:
+## :globe_with_meridians: Setup + Command Line Syntax
 Well, the project is not at a complete stage yet, so this will be updated when it does
 
 
