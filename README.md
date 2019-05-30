@@ -1,7 +1,8 @@
 # codeBeautifier
 
 ## Disclaimer
-This readme was written preemptively. The Project is about 75% done, not including testing
+This readme was written preemptively. The Project is about 75% done, 
+not including testing
 
 <!-- what the project does, why to use it, examples, how to use it (installation), command line syntax-->
 ## :sparkles: What is codeBeautifier?
@@ -14,11 +15,53 @@ on your light themed colleges repository? Now you can. Just Run this command
 line tool with a C/C++ file and a text file of your choosing and code beatifier
 will create a more beautiful (but still functional) version of your code.
 
-## :globe_with_meridians: Setup + Command Line Syntax:
-Well, the project is not at a complete stage yet, so this will be updated when it does
+## :globe_with_meridians: Setup 
+
+Well, the project is not at a complete stage yet, so the setup
+will be edited when it is complete.
+ 
+## Command Line Syntax 
+
+``` 
+./codeBeautifier [options] [InputCodeFile] [InputTextFile] 
+```
+Where:
+ * [options] are any of the flags listed below
+ * [InputCodeFile] is the C/C++ file you would like to convert
+ * [InputTextFile] is the text you would like to convert [InputCodeFile] to
+ 
+ by default:
+ * the new file will be written to beautiful_[InputCodeFile]
+ * the new file will link a header file called Definitions.h 
+ with all the definitions
+ 
+#### Options
+
+* ```-f``` leave the definitions in the output InputCodeFile, 
+instead of linking a definitions header
+* ```-o``` sets the output code file to [InputCodeFile], and will overwrite
+anything in the output header file and source file
+* ```-s [outputCodeFile]``` set the output code file to be [outputCodeFile]
+* ```-h [outputHeaderFile]``` set the output header/definitions file to be [outputCodeFile]
+* ```-d [outputFileName]``` Note: [outputFileName] must not have a file extension
+sets the output source file to [outpuFileName] with the same file extnesion as [InputCodeFile]
+and the output header file to [outputFielName].h
+
+#### Count Flag
+
+The count flag is a special flag that just counts the number of words in each file.
+This feature is included because codeBeautifier works better the closer the
+word counts of the files are. Count mode will give you an estimate of how close
+they are (with uniqueness and keywords taken into account).  
+
+Here is the syntax:
+```
+./codeBeautifier -count [InputCodeFile] [InputTextFile]
+```
+No other options will be recognized if the -count flag is used.
 
 
-### Limitations + Tips For Best Success
+## Limitations + Tips For Best Success
 Some things are not availible currently (and some things will never be).
 Code Beautifier takes use of the define functionality that C offers, unfortunately,
 this adds some limitations.
@@ -55,7 +98,7 @@ even it out. And that's not as pretty :cry:
 I very rarely use or see anything besides, include, define, or pragma for headers.
 I cannot define anything to be preprossesor functions or their arguments. My solution is to just through all cpp lines
 starting with # into a header file and include that one header file. Unfortunately this will not work for something like an
-#ifndif HEADER block, because the #endif would be thrown right under it. This would hold true for any other wierd preprossessor
+\#ifndif HEADER block, because the \#endif would be thrown right under it. This would hold true for any other wierd preprossessor
 functionality I've never seen. So bear it in mind.
 
  

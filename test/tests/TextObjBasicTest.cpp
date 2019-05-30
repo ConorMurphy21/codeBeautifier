@@ -17,17 +17,18 @@ class TextObjBasicTest:public ArrObjBasicTest{
     TextObjBasicTest():ArrObjBasicTest(){
         text = new TextObj(vec);
     }
-    ~TextObjBasicTest(){
+    ~TextObjBasicTest() override{
+
         delete text;
     }
 };
 
-TEST_F(TextObjBasicTest, uniquifyBasicTest){
+TEST_F(TextObjBasicTest, noChangesToUniqueFile){
     text->uniquify();
     EXPECT_ARRAY_EQ(testData,6,text);
 }
 
-TEST_F(TextObjBasicTest, condenseBasicTest){
+TEST_F(TextObjBasicTest, basicCondenseTest){
     text->condense(5);
     EXPECT_ARRAY_EQ(testResult1,5,text);
 }

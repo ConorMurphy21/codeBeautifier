@@ -1,69 +1,109 @@
 
 #pragma once
 
-class Arguments{
+#include <string>
+#include <ostream>
+
+using namespace std;
+class Arguments {
 
 private:
-
-    //are the parameters passed in valid
-    bool valid = true;
 
     //create and count are the two functions
     bool create = true;         //either bfy create or bfy count
 
-    //should the program overwrite the files given
-    bool overWrite = false;    // flag: -o                                                                                                          ;
+    bool singleFile = false;
 
-    //keep the definitions in the .cpp file and not a .h
-    bool singleFile = false; // flag: -s
+private:
 
-    //I would like the option to scramble the definitions to make it less clear
-    //how the function works
-    bool scramble = false;
-
-    //the txt file to read in
-    char* txt;
     //the code file to read in
-    char* code;
+    string code;
+    //the txt file to read in
+    string txt;
     //the code file to put it in
-    char* out;
+    string out;
     //the h file that either exists or doesn't exist
-    char* hout;
+    string hout;
 
 public:
 
-    Arguments() = default;
-
-    void setValid(bool valid) {
-        this->valid = valid;
+    Arguments(){
+            create = true;
+            singleFile = false;
+            txt = code = out = "";
+            hout = "Definitions.h";
     }
 
-    void setTxt(char *txt) {
-        this->txt = txt;
+    Arguments(bool create, bool singleFile, const string &code, const string &txt, const string &out,
+              const string &hout) : create(create), singleFile(singleFile), code(code), txt(txt),
+                                    out(out), hout(hout) {}
+
+
+    bool operator==(const Arguments &rhs) const {
+        return create == rhs.create &&
+               singleFile == rhs.singleFile &&
+               txt == rhs.txt &&
+               code == rhs.code &&
+               out == rhs.out &&
+               hout == rhs.hout;
     }
 
-    void setCode(char *code) {
-        this->code = code;
+    friend ostream &operator<<(ostream &os, const Arguments &arguments) {
+        os << "create: " << arguments.create << " singleFile: " << arguments.singleFile <<" code: " << arguments.code
+        << " txt: " << arguments.getTxt() << " out: " << arguments.out << " hout: " << arguments.hout;
+        return os;
     }
 
-    void setOut(char *out) {
-        this->out = out;
+    bool operator!=(const Arguments &rhs) const {
+        return !(rhs == *this);
     }
 
-    bool isValid() const {
-        return valid;
+    bool isCreate() const {
+        return create;
     }
 
-    char* getTxt() const {
+    void setCreate(bool create) {
+        Arguments::create = create;
+    }
+
+    bool isSingleFile() const {
+        return singleFile;
+    }
+
+    void setSingleFile(bool singleFile) {
+        Arguments::singleFile = singleFile;
+    }
+
+    const string &getTxt() const {
         return txt;
     }
 
-    char *getCode() const {
+    void setTxt(const string &txt) {
+        Arguments::txt = txt;
+    }
+
+    const string &getCode() const {
         return code;
     }
 
-    char *getOut() const {
+    void setCode(const string &code) {
+        Arguments::code = code;
+    }
+
+    const string &getOut() const {
         return out;
     }
 
+    void setOut(const string &out) {
+        Arguments::out = out;
+    }
+
+    const string &getHout() const {
+        return hout;
+    }
+
+    void setHout(const string &hout) {
+        Arguments::hout = hout;
+    }
 };
+

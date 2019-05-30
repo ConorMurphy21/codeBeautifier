@@ -30,7 +30,7 @@ int main(int argc, char** argv){
     //maybe turn punctuations into semicolons later
 
     Arguments* args = ArgumentFactory::getArguments(argc, argv);
-    if(!args->isValid())return 5;
+    if(!args)return 1;
 
     Beautifier beautifier;
     bool success = beautifier.create(args);

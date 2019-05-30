@@ -19,7 +19,7 @@ public:
 
     Beautifier() = default;
 
-    bool create(Arguments* args);
+    static bool create(Arguments* args);
 
 };
 
