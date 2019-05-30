@@ -6,16 +6,25 @@
 #include <fstream>
 #include <iostream>
 #include "Beautifier.h"
-#include "CodeObj.h"
-#include "TextObj.h"
 
-bool evenEmOut(TextObj& txt, CodeObj& code){
-    if(code.size() > txt.size()){
-        return code.condense(txt.size());
-    }else if(code.size() < txt.size()){
-        if(!code.expand(txt.size())){
-            if(!txt.condense(code.size())){
-                return code.condense(txt.size());
+Beautifier::Beautifier(Arguments *args) : args(args){
+    string txtfn = args->getTxt();
+    text = TextObj::create(txtfn);
+    string codefn = args->getCode();
+    code = CodeObj::create(codefn);
+}
+Beautifier::~Beautifier() {
+    delete text;
+    delete code;
+}
+
+bool Beautifier::evenEmOut(){
+    if(code->size() > text->size()){
+        return code->condense(text->size());
+    }else if(code->size() < text->size()){
+        if(!code->expand(text->size())){
+            if(!text->condense(code->size())){
+                return code->condense(text->size());
             }
         }
     }
@@ -23,27 +32,22 @@ bool evenEmOut(TextObj& txt, CodeObj& code){
 
 }
 
-bool Beautifier::create(Arguments* args){
+bool Beautifier::create(){
+    if(!text)return false;
+    if(!code)return false;
+    if(text->size() == 0)return false;
+    if(code->size() == 0)return false;
+    evenEmOut();
 
-
-    string txtfn = args->getTxt();
-    auto txtWords = TextObj::create(txtfn);
-    if(!txtWords)return false;
-    string codefn = args->getCode();
-    auto codeWords = CodeObj::create(codefn);
-    if(!codeWords)return false;
-    txtWords->uniquify();
-
-    if(txtWords->size() == 0){
-        return false;
-    }
-    if(codeWords->size() == 0){
-        return false;
-    }
-    evenEmOut(*txtWords,*codeWords);
-
-    delete txtWords;
-    delete codeWords;
     return true;
 }
+
+bool Beautifier::count(){
+    if(!text)return false;
+    if(!code)return false;
+    cout << args->getCode() << " has " << code->size() << " words. " << endl;
+    cout << args->getTxt() << " has " << text->size() << " words. " << endl;
+    return true;
+}
+
 

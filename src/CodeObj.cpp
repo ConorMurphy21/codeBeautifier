@@ -3,7 +3,6 @@
 //
 
 #include <iostream>
-#include <queue>
 #include "CodeObj.h"
 
 
@@ -101,10 +100,7 @@ bool CodeObj::expand(unsigned int expectedSize) {
 
         for(int j = 0; j < word.size(); j++){
 
-            char c = word[j];
-
             int type = specialChars[word[j]];
-
 
             bool br = false;
 

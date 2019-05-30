@@ -5,7 +5,6 @@
 #pragma once
 
 #include "ArrObj.h"
-#include <fstream>
 
 class CodeObj : public ArrObj{
 

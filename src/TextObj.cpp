@@ -42,7 +42,9 @@ TextObj* TextObj::create(string& filename){
         }
     }
 
-    return new TextObj(arr);
+    auto ret = new TextObj(arr);
+    ret->uniquify();
+    return ret;
 }
 
 //desc: find first index of the key past in (this is not generic because we say

@@ -5,21 +5,32 @@
 
 #pragma once
 
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <fstream>
-#include <iostream>
 #include "Arguments.h"
+#include "CodeObj.h"
+#include "TextObj.h"
 
 using namespace std;
 class Beautifier {
 
+private:
+
+    bool evenEmOut();
+
+    Arguments* args;
+
+    CodeObj* code;
+    TextObj* text;
+
+
 public:
 
-    Beautifier() = default;
+    explicit Beautifier(Arguments* args);
 
-    static bool create(Arguments* args);
+    ~Beautifier();
+
+    bool create();
+
+    bool count();
 
 };
 

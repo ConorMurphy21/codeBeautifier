@@ -29,12 +29,22 @@ int main(int argc, char** argv){
 
     //maybe turn punctuations into semicolons later
 
-    Arguments* args = ArgumentFactory::getArguments(argc, argv);
+    //probably should have just made argument factory take a vector this is a mess
+    const char* argvv[argc];
+    for(int i = 0; i < argc; i++)argvv[i] = argv[i];
+
+    Arguments* args = ArgumentFactory::getArguments(argc, argvv);
     if(!args)return 1;
 
-    Beautifier beautifier;
-    bool success = beautifier.create(args);
+    Beautifier beautifier(args);
 
+    bool success;
+
+    if(args->isCreate()){
+        success = beautifier.create();
+    }else{
+        success = beautifier.count();
+    }
     delete args;
 
     return !success;
