@@ -29,7 +29,6 @@ bool Beautifier::evenEmOut(){
         }
     }
     return true;
-
 }
 
 bool Beautifier::create(){
@@ -38,15 +37,14 @@ bool Beautifier::create(){
     if(text->size() == 0)return false;
     if(code->size() == 0)return false;
     evenEmOut();
-
     return true;
 }
 
 bool Beautifier::count(){
     if(!text)return false;
     if(!code)return false;
-    cout << args->getCode() << " has " << code->size() << " words. " << endl;
-    cout << args->getTxt() << " has " << text->size() << " words. " << endl;
+    cout << args->getCode() << " has " << code->size() << " words." << endl;
+    cout << args->getTxt() << " has " << text->size() << " words." << endl;
     return true;
 }
 
