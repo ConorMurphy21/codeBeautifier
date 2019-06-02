@@ -5,6 +5,7 @@
 #pragma once
 
 #include "ArrObj.h"
+#include "TernaryTrie.h"
 
 using namespace std;
 class TextObj : public ArrObj {
@@ -15,6 +16,7 @@ private:
 
     int rankConnectionIndex(int index);
 
+    const static string digits[10];
 
 public:
 
@@ -26,6 +28,8 @@ public:
     bool condense(unsigned expectedSize);
 
     void uniquify();
+
+    void listKeyWords(TernaryTrie &tries, TernaryTrie &newTrie, vector<string>& list);
 };
 
 

@@ -9,6 +9,8 @@
 #include "CodeObj.h"
 #include "TextObj.h"
 
+#define REDEFINITION_PREFIX "REDEF_"
+
 using namespace std;
 class Beautifier {
 

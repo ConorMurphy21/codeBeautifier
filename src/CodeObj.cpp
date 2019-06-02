@@ -180,3 +180,62 @@ bool CodeObj::condense(unsigned expectedSize) {
     //should basically never fail
     return true;
 }
+
+void CodeObj::fillTrie(TernaryTrie &newTrie) {
+
+    for(const auto & word : list){
+
+        trie.resetState();
+        bool alphaWordStarted = false;
+        int last = 0;
+        for(const char c : word){
+            //if the word has not started, and the character is not alpha continue
+            if(!isalpha(c) || c != '_'){
+                if(!alphaWordStarted)continue;
+                break;
+            }
+            alphaWordStarted = true;
+            if(!(last = trie.search(c)))break;
+
+        }
+        //could technically optimize the ternary trie, but tbh it should be a very small trie and no big deal
+        if(last == 2) newTrie.putWord(word);
+
+    }
+}
+
+void CodeObj::replaceWithRedefs(TernaryTrie &redef, const string &redefPrefix) {
+
+    for(auto & word : list){
+
+        redef.resetState();
+        bool alphaWordStarted = false;
+        int last = 0;
+
+
+        int len = word.length();
+        unsigned i, beforeLength = 0;
+        for(i = 0; i < len; i++){
+            char c = word[i];
+            //if the word has not started, and the character is not alpha continue
+            if(!isalpha(c) || c != '_'){
+                if (!alphaWordStarted)continue;
+                break;
+            }else if(!alphaWordStarted){
+                beforeLength = i;
+                alphaWordStarted = true;
+            }
+            if(!(last = redef.search(c)))break;
+
+        }
+        if(last == 2) {
+                                    //before the keyword      //toMakeItUncommon  //The Keyword                         //What is after
+                                    //in the example of something like: }else{
+                                    // }                    +   REDEF_      +   else + {
+                                    //to give }REDEF_else{
+            string replacement = word.substr(0,beforeLength) + redefPrefix + word.substr(beforeLength,i-beforeLength) + word.substr(i);
+            word = replacement;
+        }
+
+    }
+}

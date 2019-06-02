@@ -5,9 +5,10 @@
 #include <CodeObj.h>
 #include "gtest/gtest.h"
 #include "TextObj.h"
-using namespace std;
 
 #define TEST_DIRECTORY "createTestFiles\\"
+
+using namespace std;
 
 struct CodeObjCreateTest: public testing::TestWithParam<string>{};
 
@@ -54,5 +55,5 @@ TEST_P(CodeObjCreateTest, dataDrivenCodeCreate){
 
 INSTANTIATE_TEST_SUITE_P(ddct, CodeObjCreateTest,::testing::Values("code1","code2","code3"));
 
-INSTANTIATE_TEST_SUITE_P(ddtt, TextObjCreateTest,::testing::Values("text1","text2"));
+INSTANTIATE_TEST_SUITE_P(ddtt, TextObjCreateTest,::testing::Values("text1","text2","text3"));
 

@@ -5,6 +5,8 @@
 #include <iostream>
 #include "TextObj.h"
 
+const string TextObj::digits[] = {"zero","one","two","three","four","five","six","seven","eight","nine"};
+
 TextObj* TextObj::create(string& filename){
     //open file
     ifstream in(filename);
@@ -23,11 +25,32 @@ TextObj* TextObj::create(string& filename){
             //basically checks if the character can be a valid identifier
             //commands are in likely order, so although this statement looks long, chances are
             //it will never have to check if it is a number and is not the start of the word
-            if((isalpha(c) || c == '_') || (i != 0 && line[i] != ' ' && isdigit(c))){
+
+
+            // if the number is a possilby valid identifier character
+            if((isalnum(c) || c == '_')) {
+
                 //if is proper identifier char add to word
-                word += c;
+                if(!word.empty()){
+                    word += c;
+                }else{
+                    if(isdigit(c)){
+                        if(i+1 < length){
+                            if(!isalpha(line[i+1])) word += digits[c-'0'];
+                            else {
+                                word += '_';
+                                word += c;
+                            }
+                        }else{
+                            word += digits[c-'0'];
+                        }
+                    }else{
+                        word += c;
+                    }
+                }
+
             }else if(c == ' '){
-                //if is space, push word and start over
+                //if the character is a space, push word and start over
                 if(!word.empty())arr.push_back(word);
                 word.clear();
             }
@@ -35,15 +58,14 @@ TextObj* TextObj::create(string& filename){
 
         //wierd but not uncommon edge case where sentence ends with space needs to be covered
         if(word.empty()){
-            arr[arr.size()-1] += '\n';
+            if(!arr.empty()) arr[arr.size()-1] += '\n';
         }else {
             word += '\n';
-            if (!word.empty())arr.push_back(word);
+            arr.push_back(word);
         }
     }
 
     auto ret = new TextObj(arr);
-    ret->uniquify();
     return ret;
 }
 
@@ -74,9 +96,9 @@ int TextObj::findInd(string& key){
 //nothing wrong = 3
 int TextObj::rankConnectionIndex(int index){
 
-    string main = list[index];
-
     if(index < 0 || index >= list.size()-1) return -1;
+
+    string main = list[index];
 
     if(main[main.length()-1] == '\n'){
         main.pop_back();
@@ -89,6 +111,8 @@ int TextObj::rankConnectionIndex(int index){
 
 }
 
+//this algorithm is very very very innefficient and definitely needs a new one
+//this one is o(n^3)
 void TextObj::uniquify() {
 
     int len = list.size();
@@ -117,7 +141,7 @@ void TextObj::uniquify() {
             */
 
             unsigned indexArr[] = {pos,pos-1,i-1,i};
-            unsigned rankArr[4];
+            int rankArr[4];
             for(unsigned j = 0; j < 4; j++)
                 rankArr[j] = rankConnectionIndex(indexArr[j]);
 
@@ -130,20 +154,25 @@ void TextObj::uniquify() {
                     if(rankArr[j] >= rankArr[max])max = j;
             }
 
+            unsigned maxInd = indexArr[max];
+
             switch(rankArr[max]){
                 case 2:
-                    i--;
+                    i = maxInd-1;
                 case 3:
-                    joinWords(max,'_');
+                    joinWords(maxInd,'_');
+                    i--;
                     break;
                 case 0:
-                    i--;
+                    i = maxInd-1;
                 case 1:
-                    list[max].pop_back();
-                    joinWords(max,'_');
+                    list[maxInd].pop_back();
+                    joinWords(maxInd,'_');
+                    i--;
                     break;
             }
 
+            if(i < 0) i = -1;
             len--;
             toggle = !toggle;
         }
@@ -185,4 +214,15 @@ bool TextObj::condense(unsigned expectedSize) {
     uniquify();
     return size() == expectedSize;
 }
+
+void TextObj::listKeyWords(TernaryTrie &keyWords, TernaryTrie &trie, vector<string> &list) {
+    for(const auto & word : list){
+        if(keyWords.containsWord(word)){
+            trie.putWord(word);
+            list.push_back(word);
+        }
+    }
+
+}
+
 

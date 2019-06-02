@@ -1,0 +1,2 @@
+This test has one repeated word
+this one is very simple
