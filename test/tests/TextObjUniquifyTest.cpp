@@ -4,69 +4,23 @@
 
 #include "gtest/gtest.h"
 #include "TextObj.h"
+#include "TextObjParamTest.h"
 
-#define TEST_DIRECTORY "uniquifyTestFiles\\"
+#define TEST_DIRECTORY "textTestFiles\\"
 
-class TextObjUniquifyTest : public::testing::TestWithParam <int>{
+class TextObjUniquifyTest : public::TextObjParamTest{
 
-protected:
-    TextObj *text;
-    string filename;
-    vector<string> vec;
+public:
 
-    TextObjUniquifyTest(){
-        filename = TEST_DIRECTORY;
-        filename += "test" + to_string(GetParam()) + ".txt";
-        text = TextObj::create(filename);
-        text->uniquify();
-        vec = text->getVector();
-
-        //we will test on small scale if new lines are
-        for(auto & i : vec) {
-            if(i[i.length()-1] == '\n') i.pop_back();
-        }
-    }
+    TextObjUniquifyTest() : TextObjParamTest(TEST_DIRECTORY){}
 };
 
 TEST_P(TextObjUniquifyTest,isUnchanged){
-    ifstream in(filename);
-    string actual, expected;
-    int i = 0,j = 0;
-    while(in >> expected){
-        actual = vec[i].substr(j);
-        //its right skip to next word
-
-        if(actual == expected){
-            j = 0;
-            i++;
-            continue;
-        }
-
-        int tempJ = j;
-        if((j = actual.find('_')) != string::npos){
-            actual = actual.substr(0,j);
-            j += tempJ;
-            j++;
-        }
-
-        //at this point we know they aren't equal, just want to see it printed
-        EXPECT_EQ(actual,expected);
-    }
-
+    EXPECT_UNCHANGED();
 }
 
 TEST_P(TextObjUniquifyTest,isUnique){
-    int len = vec.size();
-    for(int i = 0; i < len; i++){
-        auto actual = find(vec.begin(),vec.end(),vec[i]);
-        auto expected = vec.begin() + i;
-        //if these aren't equal it means something is not unique
-
-        EXPECT_EQ(actual,expected);
-        if(actual != expected){
-            cout << vec[i] << endl;
-        }
-    }
+    EXPECT_UNIQUE();
 }
 
 INSTANTIATE_TEST_SUITE_P(basic,TextObjUniquifyTest,
