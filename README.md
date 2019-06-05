@@ -1,8 +1,11 @@
 # codeBeautifier
 
 ## Disclaimer
-This readme was written prematurely. The Project is about 75% done, 
-not including testing
+This readme was written prematurely. The Project is about 90% done.
+Currently the project works, but it allows redefinition of all keyWords
+(smartly). But apparently my compiler doesn't allow the redefinition of 
+and, and not, but does allow the redefinition of others. So I need to do
+some research and fix that.
 
 <!-- what the project does, why to use it, examples, how to use it (installation), command line syntax-->
 ## :sparkles: What is codeBeautifier?
@@ -69,13 +72,8 @@ this adds some limitations.
 ##### Avoid repeating words
 Identifiers in c/c++ have to be unique of course. So my algorithm will tie together non-unique words
 with what is before or after it to make it unique. Not as beautiful as it could be but still does the job.
-Just maybe think twice before throwing the lyrics to yellow submarine in, it may not be underscored to smitherines.
-
-##### Avoid Keywords
-I know, words like volatile and enum are so hard to avoid. It is possible to define keywords it's just scary.
-Words like for, while, if, else, will all be black listed for sure, and treated like repeating words. Words like
-and, or, and not may be (or have the option) to be white listed because I don't know many people who use them over &&
-|| and !.
+Just maybe think twice before throwing the lyrics to all star in, it may not be underscored to smithereens.
+Or just do it anyways, It's still fun!
 
 ##### No Punctuation!!!
 This one isn't my lack of programming finesse, it's not my fault!
@@ -83,10 +81,10 @@ Identifiers just can't have punctuation! For now all punctuation is just removed
 Maybe in the future I could make sentence endings and pausers into semi-colons. But for now
 just avoid putting punctuation in your text files if you can avoid it.
 
-##### Numbers Won't look Pretty
-As we all know, identifiers must not start with numbers. But this isn't a very big deal.
+##### Numbers might not look pretty
+As we all know, identifiers must not start with numbers. This isn't a very big deal.
 All the numbers 0:9 will be replaced with zero through nine, and everything else will just be
-underscored out.
+underscored out ie 99 will be _99.
 
 ##### Check How Long Your files are in relation to each other
 Just make sure they are about the same size and everything will be fine. The algorithm can condense and expand
