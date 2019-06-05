@@ -1,7 +1,7 @@
 # codeBeautifier
 
 ## Disclaimer
-This readme was written preemptively. The Project is about 75% done, 
+This readme was written prematurely. The Project is about 75% done, 
 not including testing
 
 <!-- what the project does, why to use it, examples, how to use it (installation), command line syntax-->

@@ -156,6 +156,8 @@ public:
 
     }
 
+    const string &getPrePros() const;
+
     bool expand(unsigned int expectedSize);
 
     bool condense(unsigned expectedSize);
@@ -163,7 +165,7 @@ public:
     //should update the og trie to only include the keywords in the file
     void fillTrie(TernaryTrie &newTrie);
 
-    void replaceWithRedefs(TernaryTrie &redef, const string& redefPrefix);
+    void replaceWithRedefs(TernaryTrie &redefTrie, const string& redefPrefix);
 
 };
 

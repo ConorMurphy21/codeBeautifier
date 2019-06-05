@@ -11,21 +11,39 @@ protected:
     CodeObj* code;
 
     string arr[15] = {
-           "if",
-           "explicit",
-           "}else",
-           "}class{",
-           "int ",
-           " short ",
-           "&const{long",
-           " enum struct",
-           "forIdentifier",
-           "while_",
-           "_unsigned",
-           "_switch_",
-           "t_throw",
-           "words that shouldn't be in here and }volatile{ also",
-           "also atomic_cancel"
+            "if",
+            "explicit",
+            "}else",
+            "}class{",
+            "int ",
+            " short ",
+            "&const{long",
+            " enum struct",
+            "forIdentifier",
+            "while_",
+            "_unsigned",
+            "switch1",
+            "t_throw",
+            "words that shouldn't be in here and }volatile{ also",
+            "also atomic_cancel"
+    };
+
+    string arr2[15] = {
+            "REDEF_if",
+            "REDEF_explicit",
+            "}REDEF_else",
+            "}REDEF_class{",
+            "REDEF_int ",
+            " REDEF_short ",
+            "&REDEF_const{REDEF_long",
+            " REDEF_enum REDEF_struct",
+            "forIdentifier",
+            "while_",
+            "_unsigned",
+            "switch1",
+            "t_throw",
+            "words that shouldn't be in here REDEF_and }REDEF_volatile{ also",
+            "also REDEF_atomic_cancel"
     };
 
     CodeObjBasicTest(){
@@ -70,7 +88,7 @@ TEST_F(CodeObjBasicTest,DoubleKeyWordsFound){
     EXPECT_FOUND("enum");
     EXPECT_FOUND("struct");
 }
-TEST_F(CodeObjBasicTest, KeyWordsFound){
+TEST_F(CodeObjBasicTest, KeyWordsNotFound){
     EXPECT_NFOUND("for");
     EXPECT_NFOUND("unsigned");
     EXPECT_NFOUND("switch");
@@ -81,4 +99,18 @@ TEST_F(CodeObjBasicTest, DoubleKeyEdgeCase){
 }
 TEST_F(CodeObjBasicTest, underscoredKeyWord){
     EXPECT_FOUND("atomic_cancel");
+}
+
+TEST_F(CodeObjBasicTest, redefinitionTest){
+    TernaryTrie keyWords;
+    code->fillTrie(keyWords);
+    code->replaceWithRedefs(keyWords,"REDEF_");
+    auto vec = code->getVector();
+    unsigned actualSize = vec.size();
+    ASSERT_EQ(actualSize,15);
+    for(int i = 0; i < actualSize; i++){
+        string actual = vec[i];
+        string expected = arr2[i];
+        EXPECT_EQ(actual,expected);
+    }
 }

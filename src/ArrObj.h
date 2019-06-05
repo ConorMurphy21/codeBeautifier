@@ -22,6 +22,8 @@ public:
         return list;
     }
 
+
+
 // todo: move these to another object because they are basic utilities
 // desc: connects the word at the index, and at the index+1 together with an underscore
 // and places it in the relative spot

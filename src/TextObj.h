@@ -29,7 +29,7 @@ public:
 
     void uniquify();
 
-    void listKeyWords(TernaryTrie &tries, TernaryTrie &newTrie, vector<string>& list);
+    void createKeyWordList(TernaryTrie &keyWords, TernaryTrie &trie, vector<string> &list);
 };
 
 

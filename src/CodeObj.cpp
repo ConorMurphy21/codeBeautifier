@@ -115,7 +115,7 @@ bool CodeObj::expand(unsigned int expectedSize) {
                         if(type == 2)breakWordAtIndex(i,j+2);
                         break;
                     default:
-                        cout << "This literally can't happen I just wanted to shut up the compiler" << endl;
+                        break;
                 }
                 //so last will = 0
                 br = true;
@@ -191,7 +191,7 @@ void CodeObj::fillTrie(TernaryTrie &newTrie) {
     string word;
     for(const auto & line : list){
         for(const char c : line){
-            if(isalpha(c) || c == '_'){
+            if(isalnum(c) || c == '_'){
                 word += c;
                 continue;
             }else{
@@ -205,38 +205,78 @@ void CodeObj::fillTrie(TernaryTrie &newTrie) {
     }
 }
 
-void CodeObj::replaceWithRedefs(TernaryTrie &redef, const string &redefPrefix) {
+void CodeObj::replaceWithRedefs(TernaryTrie &redefTrie, const string &redefPrefix) {
 
     for(auto & word : list){
 
-        redef.resetState();
-        bool alphaWordStarted = false;
-        int last = 0;
+        redefTrie.resetState();
+        bool wordStarted = false, wordNotKey = false, wordFound = false;
 
-
-        int len = word.length();
         unsigned i, beforeLength = 0;
-        for(i = 0; i < len; i++){
+        for(i = 0; i < word.length(); i++){
             char c = word[i];
             //if the word has not started, and the character is not alpha continue
-            if(!isalpha(c) || c != '_'){
-                if (!alphaWordStarted)continue;
-                break;
-            }else if(!alphaWordStarted){
+
+            if(!isalnum(c) && c != '_') { //if c is not an identifier character
+
+                if (wordFound) { //this could mean the end of the word
+                    //before the keyword      //toMakeItUncommon  //The Keyword                         //What is after
+                    //in the example of something like: }else{
+                    // }                    +   REDEF_      +   else + {
+                    //to give }REDEF_else{
+                    string replacement =
+                            word.substr(0, beforeLength) + redefPrefix + word.substr(beforeLength, i - beforeLength) +
+                            word.substr(i);
+                    word = replacement;
+                    wordFound = false;
+                    i += redefPrefix.length()-1;
+
+                }
+                wordNotKey = false;
+                wordStarted = false;
+                redefTrie.resetState(); //reset word tracking
+
+                continue;
+
+            }else if (wordFound){ //if it gets here, then the word found is not actually a keyword
+                wordFound = false;
+
+            }else if(wordNotKey){ //if the word is already ruled out, stop checking until it's reset
+                continue;
+
+            }else if(!wordStarted){ //if the word has not started start the word
                 beforeLength = i;
-                alphaWordStarted = true;
+                wordStarted = true;
             }
-            if(!(last = redef.search(c)))break;
+
+            switch(redefTrie.search(c)){
+                case 0:
+                    wordNotKey = true;
+                    break;
+                case 2:
+                    wordFound = true;
+                    break;
+                default:
+                    break;
+            }
 
         }
-        if(last == 2) {
-                                    //before the keyword      //toMakeItUncommon  //The Keyword                         //What is after
-                                    //in the example of something like: }else{
-                                    // }                    +   REDEF_      +   else + {
-                                    //to give }REDEF_else{
-            string replacement = word.substr(0,beforeLength) + redefPrefix + word.substr(beforeLength,i-beforeLength) + word.substr(i);
+
+        if (wordFound) { //this could mean the end of the word
+            //before the keyword      //toMakeItUncommon  //The Keyword                         //What is after
+            //in the example of something like: }else{
+            // }                    +   REDEF_      +   else + {
+            //to give }REDEF_else{
+            string replacement =
+                    word.substr(0, beforeLength) + redefPrefix + word.substr(beforeLength, i - beforeLength) +
+                    word.substr(i);
             word = replacement;
+
         }
 
     }
+}
+
+const string &CodeObj::getPrePros() const {
+    return prePros;
 }

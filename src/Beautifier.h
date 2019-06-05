@@ -16,12 +16,21 @@ class Beautifier {
 
 private:
 
-    bool evenEmOut();
-
     Arguments* args;
-
     CodeObj* code;
     TextObj* text;
+
+    bool evenEmOut();
+
+    bool checkIfOverRiding(ofstream &out, ofstream &hout);
+
+    void outputRedefinitions(ofstream &out, vector<string> &redefList);
+
+    void outputDefinitions(ofstream &out);
+
+    void outputPrePros(ofstream &out);
+
+    void outputCFile(ofstream &out);
 
 
 public:
