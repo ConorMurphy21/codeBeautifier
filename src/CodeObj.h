@@ -149,7 +149,7 @@ public:
 
     static CodeObj* create(string& filename);
 
-    explicit CodeObj(vector<string>& list, string& prePros):ArrObj(list){
+    explicit CodeObj(vector<string>& list, const string& prePros):ArrObj(list){
         this->prePros = prePros;
         //initialize trie
         for(const auto & keyWord : keyWords)trie.putWord(keyWord);

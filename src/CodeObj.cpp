@@ -114,6 +114,8 @@ bool CodeObj::expand(unsigned int expectedSize) {
                         if(type < 2)breakWordAtIndex(i,j+1);
                         if(type == 2)breakWordAtIndex(i,j+2);
                         break;
+                    default:
+                        cout << "This literally can't happen I just wanted to shut up the compiler" << endl;
                 }
                 //so last will = 0
                 br = true;
@@ -158,20 +160,23 @@ bool CodeObj::condense(unsigned expectedSize) {
 
     if(expectedSize == 0)return false;
 
-    while(list.size() > expectedSize){
+    while( list.size() > expectedSize){
 
-        int size = list.size();
-        unsigned min = list[0].length();
+        unsigned size = list.size();
+        unsigned min = 0;
         for(int i = 1; i < size; i++) {
-            if (list[i].length() < list[min].length())min = i;
+            string str1 = list[i];
+            string str2 = list[min];
+            if (str1.length() < str2.length()) min = i;
         }
 
         unsigned tieInd;
-        if (min == 0) tieInd = min;
-        else if (min == list.size()-1){
+        if (min == 0) {
+            tieInd = min;
+        } else if (min == list.size()-1){
             tieInd = min-1;
         }else{
-            tieInd = (list[min-1] < list[min+1]) ? min-1 : min+1;
+            tieInd = (list[min-1] < list[min+1]) ? min-1 : min;
         }
 
         joinWords(tieInd,' ');
@@ -183,24 +188,20 @@ bool CodeObj::condense(unsigned expectedSize) {
 
 void CodeObj::fillTrie(TernaryTrie &newTrie) {
 
-    for(const auto & word : list){
-
-        trie.resetState();
-        bool alphaWordStarted = false;
-        int last = 0;
-        for(const char c : word){
-            //if the word has not started, and the character is not alpha continue
-            if(!isalpha(c) || c != '_'){
-                if(!alphaWordStarted)continue;
-                break;
+    string word;
+    for(const auto & line : list){
+        for(const char c : line){
+            if(isalpha(c) || c == '_'){
+                word += c;
+                continue;
+            }else{
+                if(!word.empty() && trie.containsWord(word))newTrie.putWord(word);
+                word.clear();
             }
-            alphaWordStarted = true;
-            if(!(last = trie.search(c)))break;
-
         }
+        if(!word.empty() && trie.containsWord(word))newTrie.putWord(word);
+        word.clear();
         //could technically optimize the ternary trie, but tbh it should be a very small trie and no big deal
-        if(last == 2) newTrie.putWord(word);
-
     }
 }
 

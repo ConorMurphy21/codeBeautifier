@@ -31,8 +31,11 @@ protected:
         }
     }
 
+    ~TextObjParamTest() override{
+        delete text;
+    }
+
     void EXPECT_UNCHANGED(){
-        //vec = text->getVector();
         ifstream in(filename);
         string actual, expected;
         int i = 0,j = 0;
@@ -58,7 +61,6 @@ protected:
         }
     }
     void EXPECT_UNIQUE(){
-        //vec = text->getVector();//make sure boi is up to date
         int len = vec.size();
         for(int i = 0; i < len; i++){
             auto actual = find(vec.begin(),vec.end(),vec[i]);

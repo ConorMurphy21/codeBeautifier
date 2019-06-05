@@ -45,6 +45,7 @@ public:
 
     bool containsWord(const std::string& word);
 
+
     //-1 if it is not there
     // 1 if it could be but is not a full word
     // 2 if it is a full word
