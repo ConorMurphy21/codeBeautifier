@@ -1,15 +1,12 @@
 #include <iostream>
 
 int main() {
-    //testing removal of comments
-    std::cout << "Hello, //also seeing if this triggers, /*or this*/ World!"/*testing removal of comments*/ << std::endl; //testing removal of comments
-    printf( "Hello World");
 
-    printf( "//hello" );
-    return 0;
-    /*
-     * testing removal
-     * of
-     * comments
-     */
+    std::cout << "What is love, and what is life?" << std::endl;
+    std::string in;
+    std::cin >> in;
+
+    if(in != "shrek")std::cout << "No! ";
+    std::cout << "shrek is love, shrek is life!" << std::endl;
+
 }

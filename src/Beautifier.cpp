@@ -6,6 +6,7 @@
 #include <fstream>
 #include <iostream>
 #include "Beautifier.h"
+#include "KeyWordTries.h"
 
 Beautifier::Beautifier(Arguments *args) : args(args){
     string txtfn = args->getTxt();
@@ -44,6 +45,10 @@ bool Beautifier::create(){
         return false;
     }
 
+    TernaryTrie blacklist;
+    KeyWordTries::fillWithOperators(blacklist);
+    text->underscoreBlackList(blacklist);
+    
     text->uniquify();
     evenEmOut();
 

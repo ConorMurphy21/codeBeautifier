@@ -11,113 +11,6 @@ class CodeObj : public ArrObj{
 
 private:
 
-    //in perfect order for the trie
-    const string keyWords[103] = {
-            "int",
-            "constexpr",
-            "bitor",
-            "atomic_commit",
-            "and_eq",
-            "alignof",
-            "alignas",
-            "and",
-            "atomic_cancel",
-            "asm",
-            "auto",
-            "audit",
-            "atomic_noexcept",
-            "bitand",
-            "axiom",
-            "char32_t",
-            "catch",
-            "break",
-            "bool",
-            "case",
-            "char16_t",
-            "char8_t",
-            "concept",
-            "compl",
-            "class",
-            "consteval",
-            "const",
-            "enum",
-            "default",
-            "co_return",
-            "continue",
-            "const_cast",
-            "co_await",
-            "decltype",
-            "co_yield",
-            "double",
-            "do",
-            "delete",
-            "else",
-            "dynamic_cast",
-            "for",
-            "false",
-            "export",
-            "explicit",
-            "extern",
-            "float",
-            "final",
-            "if",
-            "goto",
-            "friend",
-            "inline",
-            "import",
-            "static_assert",
-            "override",
-            "not",
-            "namespace",
-            "module",
-            "long",
-            "mutable",
-            "noexcept",
-            "new",
-            "operator",
-            "nullptr",
-            "not_eq",
-            "or_eq",
-            "or",
-            "requires",
-            "reflexpr",
-            "protected",
-            "private",
-            "public",
-            "reinterpret_cast",
-            "register",
-            "signed",
-            "short",
-            "return",
-            "static",
-            "sizeof",
-            "typedef",
-            "thread_local",
-            "synchronized",
-            "struct",
-            "static_cast",
-            "switch",
-            "this",
-            "template",
-            "transaction_safe",
-            "true",
-            "throw",
-            "try",
-            "transaction_safe_dynamic",
-            "void",
-            "unsigned",
-            "typename",
-            "typeid",
-            "union",
-            "virtual",
-            "using",
-            "while",
-            "wchar_t",
-            "volatile",
-            "xor_eq",
-            "xor"
-    };
-
 
     //all prePros functions will be stored in here
     string prePros;
@@ -141,9 +34,6 @@ private:
 
     };
 
-    TernaryTrie trie;
-
-
 
 public:
 
@@ -152,8 +42,6 @@ public:
     explicit CodeObj(vector<string>& list, const string& prePros):ArrObj(list){
         this->prePros = prePros;
         //initialize trie
-        for(const auto & keyWord : keyWords)trie.putWord(keyWord);
-
     }
 
     const string &getPrePros() const;

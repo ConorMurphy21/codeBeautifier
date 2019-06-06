@@ -225,4 +225,26 @@ void TextObj::createKeyWordList(TernaryTrie &keyWords, TernaryTrie &trie, vector
 
 }
 
+void TextObj::underscoreBlackList(TernaryTrie &trie) {
+
+    unsigned len = list.size();
+    for(int i = 0; i < len; i++){
+        string word = list[i];
+        if(trie.containsWord(word)){
+            int a = rankConnectionIndex(i-1);
+            int b = rankConnectionIndex(i);
+
+            unsigned index;
+
+            if(a > b){
+                index = i-1;
+            }else{
+                index = i;
+            }
+            joinWords(index,'_');
+        }
+    }
+
+}
+
 

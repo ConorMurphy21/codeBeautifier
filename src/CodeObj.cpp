@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include "CodeObj.h"
-
+#include "KeyWordTries.h"
 
 CodeObj* CodeObj::create(string& filename) {
     //open file
@@ -125,6 +125,8 @@ bool CodeObj::expand(unsigned int expectedSize) {
                 switch (type) {
                     case 1:
                     case 2:
+
+                        //todo this needs to be fixed
                         if(breakWordAtIndex(i, j)) {
                             br = true;
                             last = type;
@@ -187,6 +189,9 @@ bool CodeObj::condense(unsigned expectedSize) {
 }
 
 void CodeObj::fillTrie(TernaryTrie &newTrie) {
+
+    TernaryTrie trie;
+    KeyWordTries::fillWithAllKeyWords(trie);
 
     string word;
     for(const auto & line : list){

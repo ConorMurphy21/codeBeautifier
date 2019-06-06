@@ -70,4 +70,8 @@ int TernaryTrie::searchRec(TrieNode* node, char c){
     return (node->isWord) ? 2 : 1;
 }
 
+bool TernaryTrie::isEmpty() {
+    return root == nullptr;
+}
+
 

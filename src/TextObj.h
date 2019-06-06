@@ -29,6 +29,8 @@ public:
 
     void uniquify();
 
+    void underscoreBlackList(TernaryTrie& trie);
+
     void createKeyWordList(TernaryTrie &keyWords, TernaryTrie &trie, vector<string> &list);
 };
 
