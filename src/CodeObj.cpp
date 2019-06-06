@@ -95,22 +95,30 @@ bool CodeObj::expand(unsigned int expectedSize) {
 
     int last = 0;
     bool expanded = false;
+
     for(int i = 0; i < list.size(); i++){
         string word = list[i];
 
         for(int j = 0; j < word.size(); j++){
 
-            int type = specialChars[word[j]];
+            //just to avoid compiler complaints,
+            //type will always be reset before used
+            int type = 0;
 
             bool br = false;
 
             if(last){
+                //this if branch will break on the right side, if there is no right side then
+                //there is no point in evaluating this stuff
+                if(j == word.size()-1) last = 0;
+                else type = specialChars[word[j+1]];
 
                 switch (last){
                     case 1:
                         breakWordAtIndex(i,j+1);
                         break;
                     case 2:
+                        //this shouldn't be type this should be special chars at j+1
                         if(type < 2)breakWordAtIndex(i,j+1);
                         if(type == 2)breakWordAtIndex(i,j+2);
                         break;
@@ -122,6 +130,8 @@ bool CodeObj::expand(unsigned int expectedSize) {
                 last = 0;
             } else {
 
+                type = specialChars[word[j]];
+
                 switch (type) {
                     case 1:
                     case 2:
@@ -129,10 +139,10 @@ bool CodeObj::expand(unsigned int expectedSize) {
                         //todo this needs to be fixed
                         if(breakWordAtIndex(i, j)) {
                             br = true;
-                            last = type;
+                        }else{
+                            j--;
                         }
-                        else last = 0;
-
+                        last = type;
                         break;
                     case 3:
                         br = true;
