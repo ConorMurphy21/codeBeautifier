@@ -1,11 +1,8 @@
 # Code Beautifier
 
-## Disclaimer:exclamation:
-This readme was written prematurely. The Project is about 90% done.
-Currently the project works, but it allows redefinition of all keyWords
-(smartly). But apparently my compiler doesn't allow the redefinition of 
-and, and not, but does allow the redefinition of others. So I need to do
-some research and fix that.
+## Disclaimer:exclamation: 
+This software has possible malicious use. I do not condone the malicious
+use of this software. Please use responsibly!
 
 <!-- what the project does, why to use it, examples, how to use it (installation), command line syntax-->
 ## :sparkles: What is Code Beautifier?
