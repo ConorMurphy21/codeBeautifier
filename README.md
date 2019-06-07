@@ -7,7 +7,6 @@ use of this software. Please use responsibly!
 <!-- what the project does, why to use it, examples, how to use it (installation), command line syntax-->
 ## :sparkles: What is Code Beautifier?
 
-
 Code Beautifier takes your C/C++ code, and makes it beautiful.
 Ever wanted your code to just look like the lyrics of your favourite song,
 or poem? Or upload an article on why dark theme is better than light theme 
@@ -18,7 +17,7 @@ will create a more beautiful (but still functional) version of your code.
 ## Setup :globe_with_meridians: 
 
 Currently working on creating an installer for this program.
-This will soon be updated! :alarm_clock:  
+This will soon be updated! :alarm_clock:
  
 ## :page_with_curl:Command Line Syntax
 
