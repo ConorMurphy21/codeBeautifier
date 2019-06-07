@@ -46,20 +46,35 @@ bool Beautifier::create(){
     }
 
     TernaryTrie blacklist;
-    KeyWordTries::fillWithOperators(blacklist);
-    text->underscoreBlackList(blacklist);
+    bool underscore = true;
+    bool redef = true;
+    switch(args->getBlacklist()){
+        case Arguments::ALL:
+            KeyWordTries::fillWithAllKeyWords(blacklist);
+            redef = false;
+            break;
+        case Arguments::OPERATORS:
+            KeyWordTries::fillWithOperators(blacklist);
+            break;
+        case Arguments::NONE:
+            underscore = false;
+            break;
+    }
+    if(underscore)text->underscoreBlackList(blacklist);
     
     text->uniquify();
     evenEmOut();
 
-    //create a keyWord trie
-    TernaryTrie keyWordsUsed, redefinitionTrie;
     vector<string> redefinitionList;
-    code->fillTrie(keyWordsUsed);
+    if(redef) {
+        //create a keyWord trie
+        TernaryTrie keyWordsUsed, redefinitionTrie;
+        code->fillTrie(keyWordsUsed);
 
-    text->createKeyWordList(keyWordsUsed, redefinitionTrie, redefinitionList);
-    code->replaceWithRedefs(redefinitionTrie,REDEFINITION_PREFIX);
-
+        text->createKeyWordList(keyWordsUsed, redefinitionTrie, redefinitionList);
+        code->replaceWithRedefs(redefinitionTrie, REDEFINITION_PREFIX);
+    }
+    
     //at this point everything should be all well and dandy just need to put them into the output file
     ofstream out(args->getOut());
     if(!out){
@@ -68,7 +83,7 @@ bool Beautifier::create(){
     }
 
     if(args->isSingleFile()){
-        outputRedefinitions(out,redefinitionList);
+        if(redef)outputRedefinitions(out,redefinitionList);
         outputDefinitions(out);
         outputPrePros(out);
         outputCFile(out);

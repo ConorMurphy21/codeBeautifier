@@ -7,6 +7,7 @@
 using namespace std;
 class Arguments {
 
+    
 private:
 
     //create and count are the two functions
@@ -14,7 +15,6 @@ private:
 
     bool singleFile = false;
 
-private:
 
     //the code file to read in
     string code;
@@ -26,7 +26,17 @@ private:
     string hout;
 
 public:
+    enum BL_t {ALL,OPERATORS,NONE};
+    
+private:
+    //what keywords to blacklist
+    //I set the default to what works best on my system
+    //but can change it later
+    BL_t blacklist = OPERATORS;
 
+
+public:
+    
     Arguments(){
             create = true;
             singleFile = false;
@@ -36,7 +46,9 @@ public:
 
     Arguments(bool create, bool singleFile, const string &code, const string &txt, const string &out,
               const string &hout) : create(create), singleFile(singleFile), code(code), txt(txt),
-                                    out(out), hout(hout) {}
+                                    out(out), hout(hout) {
+
+    }
 
 
     bool operator==(const Arguments &rhs) const {
@@ -104,6 +116,14 @@ public:
 
     void setHout(const string &hout) {
         Arguments::hout = hout;
+    }
+
+    BL_t getBlacklist() const {
+        return blacklist;
+    }
+
+    void setBlacklist(BL_t blacklist) {
+        Arguments::blacklist = blacklist;
     }
 };
 

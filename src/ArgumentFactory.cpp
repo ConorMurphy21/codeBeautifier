@@ -5,8 +5,8 @@
 #include "ArgumentFactory.h"
 #include <iostream>
 #include <cstring>
+#include <algorithm>
 
-//Any Source file (header or implementation) can be beautified, so these are all of those extensions
 const string ArgumentFactory::SOURCE_EXTENSIONS[NUM_SOURCE_EXTENSIONS] =
         {"c","cc","C","cpp","cxx","c++","h","hh","H","hpp","hxx","h++"};
 //these are just header extensions
@@ -114,6 +114,20 @@ Arguments* ArgumentFactory::getArguments(int argc, const char *argv[]) {
                         cout << "Destination must not have a file extension." << endl;
                         return nullptr;
                     }
+                case BLACKLIST_FLAG:
+                    transform(str.begin(), str.end(), str.begin(), ::tolower);
+                    if(str == "all"){
+                        args->setBlacklist(Arguments::ALL);
+                    }else if(str == "none"){
+                        args->setBlacklist(Arguments::NONE);
+                    }else if(str != "ops"){
+                        args->setBlacklist(Arguments::OPERATORS);
+                    }else{
+                        cout << str << " is not a recognized blacklist option." << endl;
+                        return nullptr;
+                    }
+
+                    break;
             }
             last = 0;
         }else{
@@ -133,6 +147,7 @@ Arguments* ArgumentFactory::getArguments(int argc, const char *argv[]) {
                 case HEADER_DESTINATION_FLAG:
                 case SOURCE_DESTINATION_FLAG:
                 case DESTINATION_FLAG:
+                case BLACKLIST_FLAG:
                     last = c;
                     break;
 

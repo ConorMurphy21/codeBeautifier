@@ -1,6 +1,6 @@
-# codeBeautifier
+# Code Beautifier
 
-## Disclaimer
+## Disclaimer:exclamation:
 This readme was written prematurely. The Project is about 90% done.
 Currently the project works, but it allows redefinition of all keyWords
 (smartly). But apparently my compiler doesn't allow the redefinition of 
@@ -18,12 +18,12 @@ on your light themed colleges repository? Now you can. Just Run this command
 line tool with a C/C++ file and a text file of your choosing and code beatifier
 will create a more beautiful (but still functional) version of your code.
 
-## :globe_with_meridians: Setup 
+## Setup :globe_with_meridians: 
 
-Well, the project is not at a complete stage yet, so the setup
-will be edited when it is complete.
+Currently working on creating an installer for this program.
+This will soon be updated! :alarm_clock:  
  
-## Command Line Syntax 
+## :page_with_curl:Command Line Syntax
 
 ``` 
 ./codeBeautifier [options] [InputCodeFile] [InputTextFile] 
@@ -49,6 +49,28 @@ anything in the output header file and source file
 * ```-d [outputFileName]``` Note: [outputFileName] must not have a file extension
 sets the output source file to [outpuFileName] with the same file extnesion as [InputCodeFile]
 and the output header file to [outputFielName].h
+* ```-b [blackList]``` [blackList] can be ALL, NONE, or OPS (Ignore case) see below for details.
+
+#### Blacklist
+
+This option is still a work and progress and I need your help!  
+There are two ways my algorithm can deal with C/C++ Keywords. It can:
+1. It can combine all keywords in the text file so there are no keywords
+eg. Hello atomic_cancel World would become Hello_atomic_cancel World.
+2. It can redefine the keyword above the set of definitions so it can still be used
+by the other definitions, and then allow it to be redefined
+
+The first option will be effective 100% of the time.  
+The second option is only effective for most keywords, but is a better
+looking solution.  
+From my experience operator keyword such as 'and' and 'or', are not allowed
+to be redefined but everything else is. So I have added an option to blacklist
+certain sets of words based on your environment. My algorithm will run option 1
+on the blacklisted words and option 2 on everything else.
+So far the only blacklisting options I have found is ALL, NONE, and my environment
+OPS(MinGW C++14). Which blacklists all the operators. Let me know what your environments need
+and I will add more blacklist options. By default I will set it to OPS, but that can
+change if there is a more common environment need.
 
 #### Count Flag
 
@@ -64,8 +86,8 @@ Here is the syntax:
 No other options will be recognized if the -count flag is used.
 
 
-## Limitations + Tips For Best Success
-Some things are not availible currently (and some things will never be).
+## Limitations :boom: + Tips For Best Success :star2:
+Some things are not available currently (and some things will never be).
 Code Beautifier takes use of the define functionality that C offers, unfortunately,
 this adds some limitations.
 
@@ -81,22 +103,22 @@ Identifiers just can't have punctuation! For now all punctuation is just removed
 Maybe in the future I could make sentence endings and pausers into semi-colons. But for now
 just avoid putting punctuation in your text files if you can avoid it.
 
-##### Numbers might not look pretty
-As we all know, identifiers must not start with numbers. This isn't a very big deal.
-All the numbers 0:9 will be replaced with zero through nine, and everything else will just be
-underscored out ie 99 will be _99.
+##### Numbers might not look pretty :woman_shrugging: 
+As we all know, identifiers must not start with numbers. No Biggie.
+All the numbers 0:9 will be replaced with zero through nine, and everything 
+else will just be underscored out ie 99 will be _99.
 
 ##### Check How Long Your files are in relation to each other
 Just make sure they are about the same size and everything will be fine. The algorithm can condense and expand
 the code file, but if it has to condense the text file you may not be happy with your results. If the text file has
 way more words than the code file, the algorithm will end up tying words in the text file together with underscore to 
-even it out. And that's not as pretty :cry:
+even it out. And that's not as pretty :cry:.
 
-##### Avoid cpp files that have a lot of preprossessor logic
+##### Avoid source files that have a lot of preprocessor logic
 I very rarely use or see anything besides, include, define, or pragma for headers.
-I cannot define anything to be preprossesor functions or their arguments. My solution is to just through all cpp lines
-starting with # into a header file and include that one header file. Unfortunately this will not work for something like an
-\#ifndif HEADER block, because the \#endif would be thrown right under it. This would hold true for any other wierd preprossessor
-functionality I've never seen. So bear it in mind.
+I cannot define anything to be preprocessor functions or their arguments. My solution is to just through
+all the preprocessor below all the definitions in the included Definitions file. 
+If this is just a couple includes then everything will be fine and dandy, anything else
+may cause errors.
 
  
