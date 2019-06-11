@@ -25,15 +25,6 @@ private:
     //the h file that either exists or doesn't exist
     string hout;
 
-public:
-    enum BL_t {ALL,OPERATORS,NONE};
-    
-private:
-    //what keywords to blacklist
-    //I set the default to what works best on my system
-    //but can change it later
-    BL_t blacklist = OPERATORS;
-
 
 public:
     
@@ -118,12 +109,5 @@ public:
         Arguments::hout = hout;
     }
 
-    BL_t getBlacklist() const {
-        return blacklist;
-    }
-
-    void setBlacklist(BL_t blacklist) {
-        Arguments::blacklist = blacklist;
-    }
 };
 

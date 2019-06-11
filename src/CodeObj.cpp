@@ -16,8 +16,8 @@ CodeObj* CodeObj::create(string& filename) {
     }
     vector<string> arr;
     string line;
-    bool commented, quoted, inLine;
-    commented = quoted = inLine = false;
+    bool commented, quoted, inLine, escaped;
+    commented = quoted = inLine = escaped = false;
     char quote = 0;
 
     while(std::getline(in,line)){
@@ -36,14 +36,22 @@ CodeObj* CodeObj::create(string& filename) {
 
             if(quoted){
                 word += c;
+
+                if(c == '\\'){
+                    escaped = !escaped;
+                    continue;
+                }
+
                 if(c == quote && //if its a quote
-                (i == 0 || line[i-1] != '\\')){ //and its not escaped
+                    !escaped){ //and its not escaped
                     //push back the quote
                     if (!word.empty()) arr.push_back(word);
                     word.clear();
                     //end quote
                     quoted = false;
                 }
+
+                escaped = false;
                 continue;
             }else if(commented){
                 //if it's the end of a quote
@@ -64,10 +72,10 @@ CodeObj* CodeObj::create(string& filename) {
 
             }else if(c == '/') {
                 if (i != length) {
-                    if (line[i+1] == '/') {
+                    if (line[i + 1] == '/') {
                         inLine = true;
                         break;
-                    } else if (line[i+1] == '*') {
+                    } else if (line[i + 1] == '*') {
                         commented = true;
                         i++;
                         continue;

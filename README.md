@@ -45,28 +45,6 @@ anything in the output header file and source file
 * ```-d [outputFileName]``` Note: [outputFileName] must not have a file extension
 sets the output source file to [outpuFileName] with the same file extnesion as [InputCodeFile]
 and the output header file to [outputFielName].h
-* ```-b [blackList]``` [blackList] can be ALL, NONE, or OPS (Ignore case) see below for details.
-
-#### Blacklist
-
-This option is still a work in progress and I need your help!  
-There are two ways my algorithm can deal with C/C++ Keywords. It can:
-1. combine all keywords in the text file so there are no keywords
-eg. Hello atomic_cancel World would become Hello_atomic_cancel World.
-2. redefine the keyword above the set of definitions so it can still be used
-by the other definitions, and then allow it to be redefined
-
-The first option will be effective 100% of the time.  
-The second option is only effective for most keywords, but is a better
-looking solution.  
-From my experience, operator keywords such as 'and' and 'or', are not allowed
-to be redefined, but everything else is. So I have added an option to blacklist
-certain sets of keywords based on your environment. My algorithm will run option 1
-on the blacklisted words and option 2 on everything else.
-So far the only blacklisting options I have found is ALL, NONE, and my environment
-OPS(MinGW C++14), which blacklists all the operators. Let me know what your environments need
-and I will add more blacklist options. By default I will set it to OPS, but that can
-change if there is a more common environment need.
 
 #### Count Flag
 

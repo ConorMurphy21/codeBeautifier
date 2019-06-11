@@ -114,19 +114,6 @@ Arguments* ArgumentFactory::getArguments(int argc, const char *argv[]) {
                         cout << "Destination must not have a file extension." << endl;
                         return nullptr;
                     }
-                case BLACKLIST_FLAG:
-                    transform(str.begin(), str.end(), str.begin(), ::tolower);
-                    if(str == "all"){
-                        args->setBlacklist(Arguments::ALL);
-                    }else if(str == "none"){
-                        args->setBlacklist(Arguments::NONE);
-                    }else if(str != "ops"){
-                        args->setBlacklist(Arguments::OPERATORS);
-                    }else{
-                        cout << str << " is not a recognized blacklist option." << endl;
-                        return nullptr;
-                    }
-
                     break;
             }
             last = 0;
@@ -147,7 +134,6 @@ Arguments* ArgumentFactory::getArguments(int argc, const char *argv[]) {
                 case HEADER_DESTINATION_FLAG:
                 case SOURCE_DESTINATION_FLAG:
                 case DESTINATION_FLAG:
-                case BLACKLIST_FLAG:
                     last = c;
                     break;
 

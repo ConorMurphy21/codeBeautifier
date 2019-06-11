@@ -46,34 +46,12 @@ bool Beautifier::create(){
     }
 
     TernaryTrie blacklist;
-    bool underscore = true;
-    bool redef = true;
-    switch(args->getBlacklist()){
-        case Arguments::ALL:
-            KeyWordTries::fillWithAllKeyWords(blacklist);
-            redef = false;
-            break;
-        case Arguments::OPERATORS:
-            KeyWordTries::fillWithOperators(blacklist);
-            break;
-        case Arguments::NONE:
-            underscore = false;
-            break;
-    }
-    if(underscore)text->underscoreBlackList(blacklist);
+    KeyWordTries::fillWithAllKeyWords(blacklist);
+    text->underscoreBlackList(blacklist);
     
     text->uniquify();
     evenEmOut();
 
-    vector<string> redefinitionList;
-    if(redef) {
-        //create a keyWord trie
-        TernaryTrie keyWordsUsed, redefinitionTrie;
-        code->fillTrie(keyWordsUsed);
-
-        text->createKeyWordList(keyWordsUsed, redefinitionTrie, redefinitionList);
-        code->replaceWithRedefs(redefinitionTrie, REDEFINITION_PREFIX);
-    }
     
     //at this point everything should be all well and dandy just need to put them into the output file
     ofstream out(args->getOut());
@@ -82,10 +60,10 @@ bool Beautifier::create(){
         return false;
     }
 
+    //todo: check if overwriting
     if(args->isSingleFile()){
-        if(redef)outputRedefinitions(out,redefinitionList);
-        outputDefinitions(out);
         outputPrePros(out);
+        outputDefinitions(out);
         outputCFile(out);
     }else{
         ofstream hout(args->getHout());
@@ -93,12 +71,8 @@ bool Beautifier::create(){
             cout << "Could not find " << args->getHout() << "."<<endl;
             return false;
         }
-
-        //if(!checkIfOverRiding(out,hout))return false;
-
-        outputRedefinitions(hout,redefinitionList);
-        outputDefinitions(hout);
         outputPrePros(hout);
+        outputDefinitions(hout);
         out << "/* Include Definitions */" << endl;
         out << "#include \"" << args->getHout() << "\"" << endl;
         out << endl;
@@ -112,6 +86,10 @@ bool Beautifier::count(){
     if(!text)return false;
     if(!code)return false;
     text->uniquify();
+
+    //expand it out as far as possible
+    int i = 200;
+    while(code->expand(i))i*=2;
 
     cout << args->getCode() << " has " << code->size() << " words." << endl;
     cout << args->getTxt() << " has " << text->size() << " words." << endl;
