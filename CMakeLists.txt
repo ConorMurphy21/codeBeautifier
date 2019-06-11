@@ -3,9 +3,8 @@ project(codeBeautifier)
 
 set(CMAKE_CXX_STANDARD 14)
 
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s -O3")
-#SET(CMAKE_CXX_FLAGS_DEBUG "-g")
-#set(CMAKE_EXE_LINKER_FLAGS -static)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -s -O3")
+set(CMAKE_EXE_LINKER_FLAGS -static)
 
 add_executable(codeBeautifier main.cpp)
 
