@@ -36,7 +36,8 @@ CodeObj* CodeObj::create(string& filename) {
 
             if(quoted){
                 word += c;
-                if(c == quote){
+                if(c == quote && //if its a quote
+                (i == 0 || line[i-1] != '\\')){ //and its not escaped
                     //push back the quote
                     if (!word.empty()) arr.push_back(word);
                     word.clear();
