@@ -74,15 +74,21 @@ TextObj* TextObj::create(string& filename){
 // ie "foo" == "foo\n" is true
 //pre: none
 //post: none of the parameters are changed
-int TextObj::findInd(string& key){
+int TextObj::findInd(string key){
     int size = list.size();
-    if(key[key.size()-1] == '\n')key.pop_back();
+
+    //pop off all the new lines at the end of key
+    while(key[key.size()-1] == '\n')key.pop_back();
+
+
     for(int i = 0; i < size; i++){
         string word = list[i];
+
+        //pop off all the new lines at the end of word
+        while(word[word.size()-1] == '\n')word.pop_back();
+
+        //if they are equal return i
         if(word == key)return i;
-        if(word[word.length()-1] == '\n'){
-            if(key == word.substr(0,word.length()-1))return i;
-        }
     }
     return -1;
 }
@@ -166,7 +172,7 @@ void TextObj::uniquify() {
                 case 0:
                     i = maxInd-1;
                 case 1:
-                    list[maxInd].pop_back();
+                    while(list[maxInd][list[maxInd].length()-1] == '\n') list[maxInd].pop_back();
                     joinWords(maxInd,'_');
                     i--;
                     break;

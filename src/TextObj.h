@@ -13,7 +13,8 @@ class TextObj : public ArrObj {
 private:
 
     //desc: finds the index of a string in a string in the string array
-    int findInd(string& key);
+    //copying string because it needs to be altered without af
+    int findInd(string key);
 
     //desc: ranks how good a connection is between the word at index and the word at index + 1
     int rankConnectionIndex(int index);
