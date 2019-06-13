@@ -230,14 +230,17 @@ void CodeObj::fillTrie(TernaryTrie &newTrie) {
     }
 }*/
 
+
 void CodeObj::fillTrie(TernaryTrie &trie) {
-
-    //TernaryTrie trie;
-    //KeyWordTries::fillWithAllKeyWords(trie);
-
     string word;
     for(const auto & line : list){
         for(const char c : line){
+
+            //technically all numbers will be added to the trie, this is not ideal,
+            //but again there is no foul, because numbers are not allowed to be in the text file anyways
+            //so it's not like we are blacklisting extra stuff that will be there. Just a little wasted memory
+            //but by not checking a little time is saved.
+
             if(isalnum(c) || c == '_'){
                 word += c;
                 continue;
@@ -248,7 +251,6 @@ void CodeObj::fillTrie(TernaryTrie &trie) {
         }
         if(!word.empty())trie.putWord(word);
         word.clear();
-        //could technically optimize the ternary trie, but tbh it should be a very small trie and no big deal
     }
 }
 
