@@ -7,6 +7,8 @@
 
 const string TextObj::digits[] = {"zero","one","two","three","four","five","six","seven","eight","nine"};
 
+
+
 TextObj* TextObj::create(string& filename){
     //open file
     ifstream in(filename);
@@ -67,30 +69,6 @@ TextObj* TextObj::create(string& filename){
 
     auto ret = new TextObj(arr);
     return ret;
-}
-
-//desc: find first index of the key past in (this is not generic because we say
-//that the two strings are equal even if there is a \n character at the end
-// ie "foo" == "foo\n" is true
-//pre: none
-//post: none of the parameters are changed
-int TextObj::findInd(string key){
-    int size = list.size();
-
-    //pop off all the new lines at the end of key
-    while(key[key.size()-1] == '\n')key.pop_back();
-
-
-    for(int i = 0; i < size; i++){
-        string word = list[i];
-
-        //pop off all the new lines at the end of word
-        while(word[word.size()-1] == '\n')word.pop_back();
-
-        //if they are equal return i
-        if(word == key)return i;
-    }
-    return -1;
 }
 
 //ranks how well tying together the strings at index and index+1 will fair
@@ -172,7 +150,7 @@ void TextObj::uniquify() {
                 case 0:
                     i = maxInd-1;
                 case 1:
-                    while(list[maxInd][list[maxInd].length()-1] == '\n') list[maxInd].pop_back();
+                    removeNewLines(list[i]);
                     joinWords(maxInd,'_');
                     i--;
                     break;
@@ -221,11 +199,15 @@ bool TextObj::condense(unsigned expectedSize) {
     return size() == expectedSize;
 }
 
+
+//desc: joins any words found in the blacklist trie with the word before or after it so that it is no longer
+//a keyword
 void TextObj::underscoreBlackList(TernaryTrie &trie) {
 
     unsigned len = list.size();
     for(int i = 0; i < len; i++){
         string word = list[i];
+        removeNewLines(word);
         if(trie.containsWord(word)){
             int a = rankConnectionIndex(i-1);
             int b = rankConnectionIndex(i);
@@ -243,4 +225,28 @@ void TextObj::underscoreBlackList(TernaryTrie &trie) {
 
 }
 
+//desc: removes all the new lines on the end of the word
+void TextObj::removeNewLines(string &word) {
+    while(word[word.length()] == '\n')word.pop_back();
+}
+
+//desc: find first index of the key past in (this is not generic because we say
+//that the two strings are equal even if there is a \n character at the end
+// ie "foo" == "foo\n" is true
+//pre: none
+//post: none of the parameters are changed
+int TextObj::findInd(string key){
+    int size = list.size();
+
+    removeNewLines(key);
+
+    for(int i = 0; i < size; i++){
+        string word = list[i];
+
+        removeNewLines(word);
+        //if they are equal return i
+        if(word == key)return i;
+    }
+    return -1;
+}
 

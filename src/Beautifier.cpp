@@ -37,16 +37,17 @@ bool Beautifier::create(){
     if(!text)return false;
     if(!code)return false;
     if(text->size() == 0){
-        cout << "text file was found to be empty." << endl;
+        cout << "Text file was found to be empty." << endl;
         return false;
     }
     if(code->size() == 0){
-        cout << "code file was found to be empty." << endl;
+        cout << "Code file was found to be empty." << endl;
         return false;
     }
 
     TernaryTrie blacklist;
     KeyWordTries::fillWithAllKeyWords(blacklist);
+    code->fillTrie(blacklist);
     text->underscoreBlackList(blacklist);
     
     text->uniquify();

@@ -19,6 +19,8 @@ private:
     //desc: ranks how good a connection is between the word at index and the word at index + 1
     int rankConnectionIndex(int index);
 
+    void removeNewLines(string& word);
+
     //the english word for each of the digits
     const static string digits[10];
 
