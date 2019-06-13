@@ -42,7 +42,7 @@ public:
 
     //desc: joins any words found in the blacklist trie with the word before or after it so that it is no longer
     //a keyword
-    void underscoreBlackList(TernaryTrie& trie);
+    bool underscoreBlackList(TernaryTrie &trie);
 
 };
 

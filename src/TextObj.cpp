@@ -203,7 +203,7 @@ bool TextObj::condense(unsigned expectedSize) {
 
 //desc: joins any words found in the blacklist trie with the word before or after it so that it is no longer
 //a keyword
-void TextObj::underscoreBlackList(TernaryTrie &trie) {
+bool TextObj::underscoreBlackList(TernaryTrie &trie) {
 
     unsigned len = list.size();
     for(int i = 0; i < len; i++){
@@ -220,10 +220,14 @@ void TextObj::underscoreBlackList(TernaryTrie &trie) {
             }else{
                 index = i;
             }
+            if(index < 0){
+                cout << "Too little words, words are keywords" << endl;
+                return false;
+            }
             joinWords(index,'_');
         }
     }
-
+    return true;
 }
 
 //desc: removes all the new lines on the end of the word
