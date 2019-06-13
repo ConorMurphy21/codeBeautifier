@@ -28,24 +28,6 @@ protected:
             "also atomic_cancel"
     };
 
-    string arr2[15] = {
-            "REDEF_if",
-            "REDEF_explicit",
-            "}REDEF_else",
-            "}REDEF_class{",
-            "REDEF_int ",
-            " REDEF_short ",
-            "&REDEF_const{REDEF_long",
-            " REDEF_enum REDEF_struct",
-            "forIdentifier",
-            "while_",
-            "_unsigned",
-            "switch1",
-            "t_throw",
-            "words that shouldn't be in here REDEF_and }REDEF_volatile{ also",
-            "also REDEF_atomic_cancel"
-    };
-
     CodeObjBasicTest(){
         vector<string> vec;
         for(const auto &i : arr)vec.push_back(i);

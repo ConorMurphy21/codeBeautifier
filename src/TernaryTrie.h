@@ -23,11 +23,11 @@ private:
     TrieNode *root, *state;
 
 
-    TrieNode * putWordRec(TrieNode *node, const std::string& key, int d);
+    static TrieNode * putWordRec(TrieNode *node, const std::string& key, int d);
 
-    void deConstruct(TrieNode *node);
+    static void deConstruct(TrieNode *node);
 
-    bool containsWordRec(TrieNode *node, const std::string &key, int d);
+    static bool containsWordRec(TrieNode *node, const std::string &key, int d);
 
     int searchRec(TrieNode *node, char c);
 

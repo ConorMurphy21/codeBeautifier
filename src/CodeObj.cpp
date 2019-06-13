@@ -100,7 +100,7 @@ CodeObj* CodeObj::create(string& filename) {
 
 //todo: this needs hella testing
 //it works on the file I gave it but damn I am scared
-bool CodeObj::expand(unsigned int expectedSize) {
+bool CodeObj::expand(int expectedSize) {
 
     int last = 0;
     bool expanded = false;
@@ -144,8 +144,6 @@ bool CodeObj::expand(unsigned int expectedSize) {
                 switch (type) {
                     case 1:
                     case 2:
-
-                        //todo this needs to be fixed
                         if(breakWordAtIndex(i, j)) {
                             br = true;
                         }else{

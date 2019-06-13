@@ -104,10 +104,10 @@ void TextObj::uniquify() {
     //for aesthetic reasons. so we are going to toggle where we put the underscore,
     //on the first one, or on the end one. Obviously not a perfect solution,
     //but it's an improvement from just all at the end or start
-    for(unsigned i = 0; i < len; i++){
+    for(int i = 0; i < len; i++){
         string word = list[i];
 
-        unsigned pos = findInd(word);
+        int pos = findInd(word);
 
         if(pos != i){
 
@@ -124,7 +124,7 @@ void TextObj::uniquify() {
              * So what we need to do is choose the ideal choice, but still deal with the unideal scenarios
             */
 
-            unsigned indexArr[] = {pos,pos-1,i-1,i};
+            int indexArr[] = {pos,pos-1,i-1,i};
             int rankArr[4];
             for(unsigned j = 0; j < 4; j++)
                 rankArr[j] = rankConnectionIndex(indexArr[j]);
@@ -138,6 +138,7 @@ void TextObj::uniquify() {
                     if(rankArr[j] >= rankArr[max])max = j;
             }
 
+            //will never be a negative number so now is unsigned
             unsigned maxInd = indexArr[max];
 
             switch(rankArr[max]){
@@ -175,11 +176,11 @@ bool TextObj::condense(unsigned expectedSize) {
 
     while(list.size() > expectedSize){
 
-        int size = list.size();
+        unsigned size = list.size();
         unsigned index = 0;
         int rank = rankConnectionIndex(index);
 
-        for(int i = 1; i < size; i++) {
+        for(unsigned i = 1; i < size; i++) {
             int r = rankConnectionIndex(i);
             if(r > rank){
                 rank = r;

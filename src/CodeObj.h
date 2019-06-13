@@ -50,7 +50,7 @@ public:
     //desc: separates words until there are the same number of words as expected size
     //returns if successfully expanded to expected size
     //post: list->size == expectedSize
-    bool expand(unsigned int expectedSize);
+    bool expand(int expectedSize);
 
     //desc: reduces the file size by combining words until the size of the file has reached the expected size
     //returns if successfully condensed to expected size

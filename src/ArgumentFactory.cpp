@@ -185,7 +185,7 @@ Arguments* ArgumentFactory::getArguments(int argc, const char *argv[]) {
 
     //add the same extension as the extension given on the input to the output
     if(addExtension){
-        int index = code.find('.');
+        unsigned int index = code.find('.');
         if(index == string::npos){
             args->setOut(args->getOut()+".cpp");
         }else{
