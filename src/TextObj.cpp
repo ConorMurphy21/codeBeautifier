@@ -215,16 +215,6 @@ bool TextObj::condense(unsigned expectedSize) {
     return size() == expectedSize;
 }
 
-void TextObj::createKeyWordList(TernaryTrie &keyWords, TernaryTrie &trie, vector<string> &list) {
-    for(const auto & word : list){
-        if(keyWords.containsWord(word)){
-            trie.putWord(word);
-            list.push_back(word);
-        }
-    }
-
-}
-
 void TextObj::underscoreBlackList(TernaryTrie &trie) {
 
     unsigned len = list.size();

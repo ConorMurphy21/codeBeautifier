@@ -24,7 +24,7 @@ protected:
             "_unsigned",
             "switch1",
             "t_throw",
-            "words that shouldn't be in here and }volatile{ also",
+            "words that shouldnt be in here and }volatile{ also",
             "also atomic_cancel"
     };
 
@@ -101,7 +101,8 @@ TEST_F(CodeObjBasicTest, underscoredKeyWord){
     EXPECT_FOUND("atomic_cancel");
 }
 
-TEST_F(CodeObjBasicTest, redefinitionTest){
+//this test is no longer needed as this is not used
+/*TEST_F(CodeObjBasicTest, redefinitionTest){
     TernaryTrie keyWords;
     code->fillTrie(keyWords);
     code->replaceWithRedefs(keyWords,"REDEF_");
@@ -113,4 +114,4 @@ TEST_F(CodeObjBasicTest, redefinitionTest){
         string expected = arr2[i];
         EXPECT_EQ(actual,expected);
     }
-}
+}*/

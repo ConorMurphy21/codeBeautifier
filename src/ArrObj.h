@@ -22,12 +22,9 @@ public:
         return list;
     }
 
-
-
-// todo: move these to another object because they are basic utilities
-// desc: connects the word at the index, and at the index+1 together with an underscore
-// and places it in the relative spot
-// returns if the function is successful
+    // desc: connects the word at the index, and at the index+1 together with an underscore
+    // and places it in the relative spot
+    // returns if the function is successful
     bool joinWords(unsigned int index, char join){
         if(index + 1 >= list.size()) return false;
         list[index] = list[index] + join + list[index+1]; //put the tied words together in list[index]
@@ -35,8 +32,8 @@ public:
         return true;
     }
 
-//desc: break word, at index of character into two words
-// returns if the function successfully split a word
+    //desc: break word, at index of character into two words
+    //returns if the function successfully split a word
     bool breakWordAtIndex(unsigned wordIndex, unsigned index){
         //out of bounds
         if(wordIndex >= list.size())return false;

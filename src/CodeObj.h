@@ -37,22 +37,34 @@ private:
 
 public:
 
+    //creates a code object from a file
+    //this separates all the words into an array, removes comments, and keeps preprocessor functions in prePros
     static CodeObj* create(string& filename);
 
-    explicit CodeObj(vector<string>& list, const string& prePros):ArrObj(list){
-        this->prePros = prePros;
-        //initialize trie
-    }
+    //basic constructor
+    explicit CodeObj(vector<string>& list, const string& prePros):ArrObj(list), prePros(prePros){}
 
+    //simple getter
     const string &getPrePros() const;
 
+    //desc: separates words until there are the same number of words as expected size
+    //returns if successfully expanded to expected size
+    //post: list->size == expectedSize
     bool expand(unsigned int expectedSize);
 
-    bool condense(unsigned expectedSize);
+    //desc: reduces the file size by combining words until the size of the file has reached the expected size
+    //returns if successfully condensed to expected size
+    //pre expectedSize is not 0
+    //post: list->size == expectedSize
+    bool condense(unsigned int expectedSize);
 
-    //should update the og trie to only include the keywords in the file
-    void fillTrie(TernaryTrie &newTrie);
+    //desc: fills the given trie with all of the alphanum words found in it
+    //ie all variable names, (and keywords but keeping them out makes no difference)
+    //post: trie is filled with all words to avoid
+    void fillTrie(TernaryTrie &trie);
 
+
+    //this is no longer being used, but may be used in the future
     void replaceWithRedefs(TernaryTrie &redefTrie, const string& redefPrefix);
 
 };

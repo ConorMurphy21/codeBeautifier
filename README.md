@@ -1,7 +1,9 @@
 # Code Beautifier
 
-## Disclaimer:exclamation: 
-This software has possible malicious use. I do not condone the malicious
+## Disclaimers:exclamation: 
+1. This project is not yet stable.  
+
+2. This software has possible malicious use. I do not condone the malicious
 use of this software. Please use responsibly!
 
 <!-- what the project does, why to use it, examples, how to use it (installation), command line syntax-->

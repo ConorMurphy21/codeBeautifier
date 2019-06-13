@@ -27,7 +27,8 @@ private:
 
 
 public:
-    
+
+    //default constructor
     Arguments(){
             create = true;
             singleFile = false;
@@ -41,7 +42,7 @@ public:
 
     }
 
-
+    //default == overload, nothing special just checks if all of the members are the same
     bool operator==(const Arguments &rhs) const {
         return create == rhs.create &&
                singleFile == rhs.singleFile &&
@@ -51,15 +52,20 @@ public:
                hout == rhs.hout;
     }
 
+    //default print
     friend ostream &operator<<(ostream &os, const Arguments &arguments) {
         os << "create: " << arguments.create << " singleFile: " << arguments.singleFile <<" code: " << arguments.code
         << " txt: " << arguments.getTxt() << " out: " << arguments.out << " hout: " << arguments.hout;
         return os;
     }
 
+    //defaul !=
     bool operator!=(const Arguments &rhs) const {
         return !(rhs == *this);
     }
+
+
+    /*** default getters and setters for all argument attributes ***/
 
     bool isCreate() const {
         return create;

@@ -101,14 +101,6 @@ bool Beautifier::checkIfOverRiding(ofstream &out, ofstream &hout) {
     return true;
 }
 
-void Beautifier::outputRedefinitions(ofstream &out, vector<string> &redefList) {
-    out << "/* Redefine keywords found in the text file */" << endl;
-    for(const auto &word : redefList){
-        out << "#define " << word << " " << REDEFINITION_PREFIX << word << endl;
-    }
-    out << endl; //give a little space for next section
-}
-
 void Beautifier::outputDefinitions(ofstream &out) {
     out << "/* Define all the words in the text file */" << endl;
     vector<string> identifiers = text->getVector();

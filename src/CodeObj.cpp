@@ -207,6 +207,7 @@ bool CodeObj::condense(unsigned expectedSize) {
     return true;
 }
 
+/*
 void CodeObj::fillTrie(TernaryTrie &newTrie) {
 
     TernaryTrie trie;
@@ -224,6 +225,28 @@ void CodeObj::fillTrie(TernaryTrie &newTrie) {
             }
         }
         if(!word.empty() && trie.containsWord(word))newTrie.putWord(word);
+        word.clear();
+        //could technically optimize the ternary trie, but tbh it should be a very small trie and no big deal
+    }
+}*/
+
+void CodeObj::fillTrie(TernaryTrie &trie) {
+
+    //TernaryTrie trie;
+    //KeyWordTries::fillWithAllKeyWords(trie);
+
+    string word;
+    for(const auto & line : list){
+        for(const char c : line){
+            if(isalnum(c) || c == '_'){
+                word += c;
+                continue;
+            }else{
+                if(!word.empty()) trie.putWord(word);
+                word.clear();
+            }
+        }
+        if(!word.empty())trie.putWord(word);
         word.clear();
         //could technically optimize the ternary trie, but tbh it should be a very small trie and no big deal
     }

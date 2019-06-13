@@ -110,24 +110,8 @@ const std::string KeyWordTries::keyWords[103] = {
         "xor"
 };
 
-const std::string KeyWordTries::operators[11] = {
-        "not",
-        "bitand",
-        "and_eq",
-        "and",
-        "compl",
-        "bitor",
-        "or_eq",
-        "or",
-        "not_eq",
-        "xor_eq",
-        "xor"
-};
 
 void KeyWordTries::fillWithAllKeyWords(TernaryTrie &trie) {
     for(const auto &word : keyWords)trie.putWord(word);
 }
 
-void KeyWordTries::fillWithOperators(TernaryTrie &trie) {
-    for(const auto &word : operators)trie.putWord(word);
-}
