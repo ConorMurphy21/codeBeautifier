@@ -151,8 +151,7 @@ void TextObj::uniquify() {
                 case 0:
                     i = maxInd-1;
                 case 1:
-                    //remove new lines at end of word
-                    while(list[i][list[i].length()] == '\n')list[i].pop_back();
+                    removeNewLines(list[i]);
                     joinWords(maxInd,'_');
                     i--;
                     break;
@@ -209,10 +208,7 @@ bool TextObj::underscoreBlackList(TernaryTrie &trie) {
     unsigned len = list.size();
     for(int i = 0; i < len; i++){
         string word = list[i];
-
-        //remove new lines
-        while(word[word.length()] == '\n')word.pop_back();
-
+        removeNewLines(word);
         if(trie.containsWord(word)){
             int a = rankConnectionIndex(i-1);
             int b = rankConnectionIndex(i);
@@ -234,6 +230,11 @@ bool TextObj::underscoreBlackList(TernaryTrie &trie) {
     return true;
 }
 
+//desc: removes all the new lines on the end of the word
+void TextObj::removeNewLines(string &word) {
+    while(word[word.length()-1] == '\n')word.pop_back();
+}
+
 //desc: find first index of the key past in (this is not generic because we say
 //that the two strings are equal even if there is a \n character at the end
 // ie "foo" == "foo\n" is true
@@ -242,13 +243,12 @@ bool TextObj::underscoreBlackList(TernaryTrie &trie) {
 int TextObj::findInd(string key){
     int size = list.size();
 
-    //remove new lines at end of word
-    while(key[key.length()] == '\n')key.pop_back();
+    removeNewLines(key);
 
     for(int i = 0; i < size; i++){
         string word = list[i];
 
-        while(word[word.length()] == '\n')word.pop_back();
+        removeNewLines(word);
         //if they are equal return i
         if(word == key)return i;
     }
