@@ -20,6 +20,8 @@ will create a more beautiful (but still functional) version of your code.
 
 Currently working on creating an installer for this program.
 This will soon be updated! :alarm_clock:
+
+For now there is a temporary exe file that can be run on windows.  
  
 ## :page_with_curl:Command Line Syntax
 

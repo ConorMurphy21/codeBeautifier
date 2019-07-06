@@ -46,7 +46,6 @@ TEST_F(ArrObjBasicTest, breakWordsAtIndex1){
 }
 
 TEST_F(ArrObjBasicTest, breakWordsAtIndex2){
-
     //overwrite arr with testResult1
     auto vec = arr->getVector();
     vec.pop_back();
@@ -55,5 +54,6 @@ TEST_F(ArrObjBasicTest, breakWordsAtIndex2){
     EXPECT_ARRAY_EQ(testData,6,arr);
     EXPECT_EQ(r,false);
 }
+
 
 
