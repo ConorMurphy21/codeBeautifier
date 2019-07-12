@@ -30,10 +30,10 @@ TEST_P(TextObjCondenseTest,condense80){
 }
 
 TEST_P(TextObjCondenseTest,condense50){
-    condenseToPercent(.8);
+    condenseToPercent(.5);
 }
 TEST_P(TextObjCondenseTest,condense30){
-    condenseToPercent(.8);
+    condenseToPercent(.3);
 }
 TEST_P(TextObjCondenseTest,condense1){
     text->condense(1);
@@ -42,4 +42,4 @@ TEST_P(TextObjCondenseTest,condense1){
 }
 
 INSTANTIATE_TEST_SUITE_P(basic,TextObjCondenseTest,
-                         ::testing::Range(1,8));
+                         ::testing::Range(1,11));

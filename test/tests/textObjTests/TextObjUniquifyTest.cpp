@@ -24,5 +24,5 @@ TEST_P(TextObjUniquifyTest,isUnique){
 }
 
 INSTANTIATE_TEST_SUITE_P(basic,TextObjUniquifyTest,
-        ::testing::Range(1,8));
+        ::testing::Range(1,11));
 

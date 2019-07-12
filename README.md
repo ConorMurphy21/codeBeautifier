@@ -18,16 +18,19 @@ will create a more beautiful (but still functional) version of your code.
 
 ## Setup :globe_with_meridians: 
 
-Currently working on creating an installer for this program.
-This will soon be updated! :alarm_clock:
+I have included a windows installer in the source directory,
+make sure to allow codeBeautifier to add itself to the path variable,
+from there follow the command line syntax
 
-For now there is a temporary exe file that can be run on windows.  
+Currently working on making the installer cross platform
+This will soon be updated! :alarm_clock:
  
 ## :page_with_curl:Command Line Syntax
 
 ``` 
-./codeBeautifier [options] [InputCodeFile] [InputTextFile] 
+./bfy [options] [InputCodeFile] [InputTextFile] 
 ```
+
 Where:
  * [options] are any of the flags listed below
  * [InputCodeFile] is the C/C++ file you would like to convert

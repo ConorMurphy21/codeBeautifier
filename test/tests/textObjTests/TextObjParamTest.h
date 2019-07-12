@@ -41,7 +41,6 @@ protected:
         int i = 0,j = 0;
         while(in >> expected){
             actual = vec[i].substr(j);
-            //its right skip to next word
 
             if(actual == expected){
                 j = 0;

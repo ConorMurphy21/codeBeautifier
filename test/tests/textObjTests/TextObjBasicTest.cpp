@@ -5,7 +5,7 @@
 #include <ArrObj.h>
 #include <TextObj.h>
 #include "gtest/gtest.h"
-#include "ArrObjBasicTest.h"
+#include "../arrObjTests/ArrObjBasicTest.h"
 
 
 using namespace std;

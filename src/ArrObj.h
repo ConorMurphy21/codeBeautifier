@@ -22,11 +22,18 @@ public:
         return list;
     }
 
+    //desc: removes all the new lines on the end of the word
+    static void removeNewLines(string &word) {
+        while(word[word.length()-1] == '\n')word.pop_back();
+    }
+
+
     // desc: connects the word at the index, and at the index+1 together with an underscore
     // and places it in the relative spot
     // returns if the function is successful
     bool joinWords(unsigned int index, char join){
         if(index + 1 >= list.size()) return false;
+        removeNewLines(list[index]);
         list[index] = list[index] + join + list[index+1]; //put the tied words together in list[index]
         list.erase(list.begin()+index+1,list.begin()+index+2); //remove list[index+1]
         return true;

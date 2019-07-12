@@ -143,18 +143,12 @@ void TextObj::uniquify() {
 
             switch(rankArr[max]){
                 case 2:
-                    i = maxInd-1;
-                case 3:
-                    joinWords(maxInd,'_');
-                    i--;
-                    break;
                 case 0:
                     i = maxInd-1;
+                case 3:
                 case 1:
-                    removeNewLines(list[i]);
                     joinWords(maxInd,'_');
                     i--;
-                    break;
             }
 
             if(i < 0) i = -1;
@@ -217,6 +211,7 @@ bool TextObj::underscoreBlackList(TernaryTrie &trie) {
 
             if(a > b){
                 index = i-1;
+                i--;
             }else{
                 index = i;
             }
@@ -225,14 +220,11 @@ bool TextObj::underscoreBlackList(TernaryTrie &trie) {
                 return false;
             }
             joinWords(index,'_');
+            i--;
+            len--;
         }
     }
     return true;
-}
-
-//desc: removes all the new lines on the end of the word
-void TextObj::removeNewLines(string &word) {
-    while(word[word.length()-1] == '\n')word.pop_back();
 }
 
 //desc: find first index of the key past in (this is not generic because we say
