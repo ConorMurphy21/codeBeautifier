@@ -45,10 +45,10 @@ bool Beautifier::create(){
         return false;
     }
 
-    TernaryTrie blacklist;
-    KeyWordTries::fillWithAllKeyWords(blacklist);
-    code->fillTrie(blacklist);
-    text->underscoreBlackList(blacklist);
+    TernaryTrie excludeList;
+    KeyWordTries::fillWithAllKeyWords(excludeList);
+    code->fillTrie(excludeList);
+    text->underscoreBlackList(excludeList);
     
     text->uniquify();
     evenEmOut();

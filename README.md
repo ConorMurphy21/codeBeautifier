@@ -14,7 +14,8 @@ Ever wanted your code to just look like the lyrics of your favourite song,
 or poem? Or upload an article on why dark theme is better than light theme 
 on your light themed colleges repository? Now you can. Just Run this command 
 line tool with a C/C++ file and a text file of your choosing and Code Beautifier
-will create a more beautiful (but still functional) version of your code.
+will create a more beautiful (but still functional) version of your code.  
+here are some [examples](https://github.com/ConorMurphy21/codeBeautifier/tree/master/examples)
 
 ## Setup :globe_with_meridians: 
 
