@@ -94,7 +94,7 @@ else will just be underscored out ie 99 will be _99.
 
 ##### Check How long your files are in relation to each other
 Just make sure they are about the same size and everything will be fine. 
-The algorithm can condense and expandthe code file, but if it has to 
+The algorithm can condense and expand the code file, but if it has to 
 condense the text file you may not be happy with your results. If the 
 text file has a lot more words than the code file, the algorithm will 
 end up tying words in the text file together with underscore to 
