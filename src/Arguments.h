@@ -5,115 +5,116 @@
 #include <ostream>
 
 using namespace std;
+
 class Arguments {
 
-    
+
 private:
 
-    //create and count are the two functions
-    bool create = true;         //either bfy create or bfy count
+   //create and count are the two functions
+   bool create = true;         //either bfy create or bfy count
 
-    bool singleFile = false;
+   bool singleFile = false;
 
 
-    //the code file to read in
-    string code;
-    //the txt file to read in
-    string txt;
-    //the code file to put it in
-    string out;
-    //the h file that either exists or doesn't exist
-    string hout;
+   //the code file to read in
+   string code;
+   //the txt file to read in
+   string txt;
+   //the code file to put it in
+   string out;
+   //the h file that either exists or doesn't exist
+   string hout;
 
 
 public:
 
-    //default constructor
-    Arguments(){
-            create = true;
-            singleFile = false;
-            txt = code = out = "";
-            hout = "Definitions.h";
-    }
+   //default constructor
+   Arguments() {
+      create = true;
+      singleFile = false;
+      txt = code = out = "";
+      hout = "Definitions.h";
+   }
 
-    Arguments(bool create, bool singleFile, const string &code, const string &txt, const string &out,
-              const string &hout) : create(create), singleFile(singleFile), code(code), txt(txt),
-                                    out(out), hout(hout) {
+   Arguments(bool create, bool singleFile, const string &code, const string &txt, const string &out,
+             const string &hout) : create(create), singleFile(singleFile), code(code), txt(txt),
+                                   out(out), hout(hout) {
 
-    }
+   }
 
-    //default == overload, nothing special just checks if all of the members are the same
-    bool operator==(const Arguments &rhs) const {
-        return create == rhs.create &&
-               singleFile == rhs.singleFile &&
-               txt == rhs.txt &&
-               code == rhs.code &&
-               out == rhs.out &&
-               hout == rhs.hout;
-    }
+   //default == overload, nothing special just checks if all of the members are the same
+   bool operator==(const Arguments &rhs) const {
+      return create == rhs.create &&
+             singleFile == rhs.singleFile &&
+             txt == rhs.txt &&
+             code == rhs.code &&
+             out == rhs.out &&
+             hout == rhs.hout;
+   }
 
-    //default print
-    friend ostream &operator<<(ostream &os, const Arguments &arguments) {
-        os << "create: " << arguments.create << " singleFile: " << arguments.singleFile <<" code: " << arguments.code
-        << " txt: " << arguments.getTxt() << " out: " << arguments.out << " hout: " << arguments.hout;
-        return os;
-    }
+   //default print
+   friend ostream &operator<<(ostream &os, const Arguments &arguments) {
+      os << "create: " << arguments.create << " singleFile: " << arguments.singleFile << " code: " << arguments.code
+         << " txt: " << arguments.getTxt() << " out: " << arguments.out << " hout: " << arguments.hout;
+      return os;
+   }
 
-    //defaul !=
-    bool operator!=(const Arguments &rhs) const {
-        return !(rhs == *this);
-    }
+   //defaul !=
+   bool operator!=(const Arguments &rhs) const {
+      return !(rhs == *this);
+   }
 
 
-    /*** default getters and setters for all argument attributes ***/
+   /*** default getters and setters for all argument attributes ***/
 
-    bool isCreate() const {
-        return create;
-    }
+   bool isCreate() const {
+      return create;
+   }
 
-    void setCreate(bool create) {
-        Arguments::create = create;
-    }
+   void setCreate(bool create) {
+      Arguments::create = create;
+   }
 
-    bool isSingleFile() const {
-        return singleFile;
-    }
+   bool isSingleFile() const {
+      return singleFile;
+   }
 
-    void setSingleFile(bool singleFile) {
-        Arguments::singleFile = singleFile;
-    }
+   void setSingleFile(bool singleFile) {
+      Arguments::singleFile = singleFile;
+   }
 
-    const string &getTxt() const {
-        return txt;
-    }
+   const string &getTxt() const {
+      return txt;
+   }
 
-    void setTxt(const string &txt) {
-        Arguments::txt = txt;
-    }
+   void setTxt(const string &txt) {
+      Arguments::txt = txt;
+   }
 
-    const string &getCode() const {
-        return code;
-    }
+   const string &getCode() const {
+      return code;
+   }
 
-    void setCode(const string &code) {
-        Arguments::code = code;
-    }
+   void setCode(const string &code) {
+      Arguments::code = code;
+   }
 
-    const string &getOut() const {
-        return out;
-    }
+   const string &getOut() const {
+      return out;
+   }
 
-    void setOut(const string &out) {
-        Arguments::out = out;
-    }
+   void setOut(const string &out) {
+      Arguments::out = out;
+   }
 
-    const string &getHout() const {
-        return hout;
-    }
+   const string &getHout() const {
+      return hout;
+   }
 
-    void setHout(const string &hout) {
-        Arguments::hout = hout;
-    }
+   void setHout(const string &hout) {
+      Arguments::hout = hout;
+   }
 
 };
 

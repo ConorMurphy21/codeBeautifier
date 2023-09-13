@@ -10,63 +10,64 @@
 #include <algorithm>
 
 using namespace std;
-class ArrObj{
+
+class ArrObj {
 
 public:
 
-    unsigned size() const{
-        return list.size();
-    }
+   unsigned size() const {
+      return list.size();
+   }
 
-    vector<string> getVector() const{
-        return list;
-    }
+   vector <string> getVector() const {
+      return list;
+   }
 
-    //desc: removes all the new lines on the end of the word
-    static void removeNewLines(string &word) {
-        while(word[word.length()-1] == '\n')word.pop_back();
-    }
+   //desc: removes all the new lines on the end of the word
+   static void removeNewLines(string &word) {
+      while (word[word.length() - 1] == '\n')word.pop_back();
+   }
 
 
-    // desc: connects the word at the index, and at the index+1 together with an underscore
-    // and places it in the relative spot
-    // returns if the function is successful
-    bool joinWords(unsigned int index, char join){
-        if(index + 1 >= list.size()) return false;
-        removeNewLines(list[index]);
-        list[index] = list[index] + join + list[index+1]; //put the tied words together in list[index]
-        list.erase(list.begin()+index+1,list.begin()+index+2); //remove list[index+1]
-        return true;
-    }
+   // desc: connects the word at the index, and at the index+1 together with an underscore
+   // and places it in the relative spot
+   // returns if the function is successful
+   bool joinWords(unsigned int index, char join) {
+      if (index + 1 >= list.size()) return false;
+      removeNewLines(list[index]);
+      list[index] = list[index] + join + list[index + 1]; //put the tied words together in list[index]
+      list.erase(list.begin() + index + 1, list.begin() + index + 2); //remove list[index+1]
+      return true;
+   }
 
-    //desc: break word, at index of character into two words
-    //returns if the function successfully split a word
-    bool breakWordAtIndex(unsigned wordIndex, unsigned index){
-        //out of bounds
-        if(wordIndex >= list.size())return false;
-        if(index == 0)return false;
-        string word = list[wordIndex];
-        //the last index is useless as there's nothing
-        if(index >= word.length())return false;
+   //desc: break word, at index of character into two words
+   //returns if the function successfully split a word
+   bool breakWordAtIndex(unsigned wordIndex, unsigned index) {
+      //out of bounds
+      if (wordIndex >= list.size())return false;
+      if (index == 0)return false;
+      string word = list[wordIndex];
+      //the last index is useless as there's nothing
+      if (index >= word.length())return false;
 
-        string first = word.substr(0,index);
-        string second = word.substr(index);
+      string first = word.substr(0, index);
+      string second = word.substr(index);
 
-        list.at(wordIndex) = second;
-        list.insert(list.begin()+wordIndex,first);
-        return true;
-    }
+      list.at(wordIndex) = second;
+      list.insert(list.begin() + wordIndex, first);
+      return true;
+   }
 
-    //this should be protected, but I need it for testing
-    explicit ArrObj(vector<string>& list){
-        this->list = list;
-    }
+   //this should be protected, but I need it for testing
+   explicit ArrObj(vector <string> &list) {
+      this->list = list;
+   }
 
 protected:
-    vector<string> list;
+   vector <string> list;
 
-    /*
-    explicit ArrObj(vector<string>& list){
-        this->list = list;
-    }*/
+   /*
+   explicit ArrObj(vector<string>& list){
+       this->list = list;
+   }*/
 };

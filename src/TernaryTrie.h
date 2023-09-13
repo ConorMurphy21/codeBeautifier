@@ -10,58 +10,60 @@
 class TernaryTrie {
 
 private:
-    struct TrieNode{
-        TrieNode *leftNode, *rightNode, *middleNode;
-        bool isWord;
-        char c;
-        explicit TrieNode(char c) : c(c){
-            leftNode = rightNode = middleNode = nullptr;
-            isWord = false;
-        }
+   struct TrieNode {
+      TrieNode *leftNode, *rightNode, *middleNode;
+      bool isWord;
+      char c;
 
-    };
-    TrieNode *root, *state;
+      explicit TrieNode(char c) : c(c) {
+         leftNode = rightNode = middleNode = nullptr;
+         isWord = false;
+      }
+
+   };
+
+   TrieNode *root, *state;
 
 
-    static TrieNode * putWordRec(TrieNode *node, const std::string& key, int d);
+   static TrieNode *putWordRec(TrieNode *node, const std::string &key, int d);
 
-    static void deConstruct(TrieNode *node);
+   static void deConstruct(TrieNode *node);
 
-    static bool containsWordRec(TrieNode *node, const std::string &key, int d);
+   static bool containsWordRec(TrieNode *node, const std::string &key, int d);
 
-    int searchRec(TrieNode *node, char c);
+   int searchRec(TrieNode *node, char c);
 
 public:
 
-    //constructor
-    TernaryTrie(){
-        //define an empty starting place
-        root = state = nullptr;
-    }
+   //constructor
+   TernaryTrie() {
+      //define an empty starting place
+      root = state = nullptr;
+   }
 
-    //deconstructor
-    ~TernaryTrie();
+   //deconstructor
+   ~TernaryTrie();
 
-    //desc: puts the word into the trie
-    //post: word is now in trie
-    void putWord(const std::string& word);
+   //desc: puts the word into the trie
+   //post: word is now in trie
+   void putWord(const std::string &word);
 
-    //desc: checks if the word is contained in the trie
-    //returns if the word is contained
-    bool containsWord(const std::string& word);
+   //desc: checks if the word is contained in the trie
+   //returns if the word is contained
+   bool containsWord(const std::string &word);
 
 
-    bool isEmpty();
+   bool isEmpty();
 
-    // desc: checks if a word is there one character at a time.
-    // post: returns:
-    //-1 if it is not there
-    // 1 if it could be but is not a full word
-    // 2 if it is a full word
-    int search(char c);
+   // desc: checks if a word is there one character at a time.
+   // post: returns:
+   //-1 if it is not there
+   // 1 if it could be but is not a full word
+   // 2 if it is a full word
+   int search(char c);
 
-    //desc: resets the state object for searches.
-    void resetState();
+   //desc: resets the state object for searches.
+   void resetState();
 };
 
 
